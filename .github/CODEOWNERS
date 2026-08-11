@@ -1,0 +1,16 @@
+# Every change needs a review from the maintainer.
+# Syntax: https://docs.github.com/articles/about-code-owners
+#
+# Owners must be users or teams — an organisation name on its own
+# (@GigLaboCom) is not a valid owner. Swap this for @GigLaboCom/<team>
+# if a maintainers team is ever created.
+
+* @glani
+
+# The factual surface. These files make claims about the app that a reader
+# will act on, so they should not change without someone checking the claim
+# against the source.
+/docs/TOOLS.md   @glani
+/CLAUDE.md       @glani
+/AGENTS.md       @glani
+/SECURITY.md     @glani

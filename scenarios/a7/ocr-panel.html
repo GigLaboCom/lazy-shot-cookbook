@@ -1,0 +1,150 @@
+<!doctype html>
+<!--
+  Panel 2 of assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png.
+
+  Every number here is a verbatim value from one real ocr_screenshot call on
+  the capture "grab-payment-error" — readings, confidences, boxes, timing. It
+  is typeset rather than screenshotted from a terminal so it stays legible at
+  1280 wide and reproducible; do not "improve" a number without re-running the
+  call. See ../A7-ocr-to-markers.md.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A7 panel 2 — OCR output</title>
+    <style>
+      :root {
+        --ink: #0b0d10;
+        --panel: #14181e;
+        --line: #232a33;
+        --fg: #e6edf3;
+        --muted: #8b94a3;
+        --accent: #e05252;
+        --ok: #6cc07f;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1280px;
+        height: 366px;
+        overflow: hidden;
+        background: var(--ink);
+        color: var(--fg);
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        -webkit-font-smoothing: antialiased;
+        padding: 26px 30px;
+      }
+
+      .call { font-size: 19px; letter-spacing: -0.01em; }
+      .call .tool { color: var(--accent); }
+      .call .arg { color: var(--muted); }
+
+      .meta {
+        font-size: 15px;
+        color: var(--muted);
+        margin: 6px 0 20px;
+      }
+
+      table { width: 100%; border-collapse: collapse; font-size: 16px; }
+
+      th {
+        text-align: left;
+        font-weight: 400;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      td { padding: 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+      .n {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #8b0000;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      /* Wrong characters are marked in the reading itself — the mangling is
+         the evidence, and it is invisible if you only print the string. */
+      .bad { color: var(--accent); }
+      .truth { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+      .conf { font-variant-numeric: tabular-nums; }
+      .low { color: var(--accent); font-weight: 700; }
+      .mid { color: #d8a657; }
+      .high { color: var(--ok); }
+
+      .box { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+      .coord { font-variant-numeric: tabular-nums; }
+
+      .foot { margin-top: 18px; font-size: 15px; color: var(--muted); }
+      .foot strong { color: var(--fg); font-weight: 400; }
+    </style>
+  </head>
+  <body>
+    <div class="call">
+      <span class="tool">ocr_screenshot</span> <span class="arg">id:</span> "grab-payment-error"
+      <span class="arg">format:</span> "metadata" <span class="arg">lang:</span> "eng"
+    </div>
+    <div class="meta">on-device Tesseract · 383 ms · 44 words · mean confidence 65</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 42px"></th>
+          <th>What Tesseract read</th>
+          <th style="width: 152px">Confidence</th>
+          <th style="width: 216px">Bounding box</th>
+          <th style="width: 132px">Marker x, y</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="n">1</span></td>
+          <td>
+            pi_3<span class="bad">0</span>xT<span class="bad">@n</span>kz2Lp<span class="bad">ovin4</span>
+            <span class="truth">on screen: pi_3QxT8mKz2Lp0Wn41</span>
+          </td>
+          <td class="conf low">6.9</td>
+          <td class="box">856, 816, 142 × 11</td>
+          <td class="coord">927, 822</td>
+        </tr>
+        <tr>
+          <td><span class="n">2</span></td>
+          <td>
+            card_declined (insufficient_funds)
+            <span class="truth">correct</span>
+          </td>
+          <td class="conf high">91.7 · 87.9</td>
+          <td class="box">811, 857, 96 × 12<br />918, 857, 145 × 12</td>
+          <td class="coord">937, 863</td>
+        </tr>
+        <tr>
+          <td><span class="n">3</span></td>
+          <td>
+            req_8fJq2LmNv4Xc
+            <span class="truth">correct — and still only claims 48</span>
+          </td>
+          <td class="conf mid">48.1</td>
+          <td class="box">842, 879, 118 × 12</td>
+          <td class="coord">901, 885</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="foot">
+      Every marker coordinate is the <strong>centre of the box on its left</strong>.
+      No position was estimated from the image.
+    </div>
+  </body>
+</html>

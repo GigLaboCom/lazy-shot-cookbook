@@ -1,6 +1,8 @@
 # A7 — OCR boxes become marker coordinates
 
-**Output:** `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png`, 1280 wide, three panels.
+**Output:** `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` — ✅ **shot**, 1280 × 781, 183 KB.
+
+**Layout changed during the shoot.** Three panels in a row put the dialog at ~420 px wide, and the identifiers — the entire subject — stopped being readable. The shipped asset is 2 + 1: the two captures side by side on top, the OCR table full width underneath. Same three panels, same argument, legible.
 
 The most technically interesting asset in the set. Nothing else on the market does this: local OCR returns a bounding box per word, and those boxes are fed straight into `add_markers`, so the agent can *point at a word it read* without ever guessing a coordinate.
 
@@ -35,7 +37,13 @@ Click **Pay** to open the dialog. Chrome pinned.
 | 1 | `capture_tracked_window title "<the window title>", keyword "grab-payment-error". Report the file path.` | The capture |
 | 2 | `ocr_screenshot "grab-payment-error" with format "metadata". Print the full transcript, then a table of word → confidence for the three identifiers. Flag anything under 60 as unclear instead of guessing it.` | The transcript, screenshotted from the terminal |
 | 3 | `Using the bounding boxes you just got: take the centre of the PaymentIntent id, the decline reason and the request id, and add_markers on "grab-payment-error" numbering them ①②③ in reading order. Tell me which coordinates you used and which OCR box each came from.` | The marker layer |
-| 4 | *(no prompt — you do this)* `open_screenshot` the marker layer, toggle markers visible, then `capture_window` matching Lazy Shot's own window title, keyword `ocr-markers-inapp`. | Panel 3's actual pixels |
+| 4 | *(no prompt — you do this)* `edit_screenshot` the marker layer, switch the layer to **Markers**, set zoom to **185%**, then `capture_window` matching **`Beautify Screenshot`**, keyword `ocr-markers-inapp`. | Panel 3's actual pixels |
+
+Three details in row 4 that cost time to find:
+
+- **The compositor window is titled `Beautify Screenshot`**, not "Heretic Lazy Shot". That is a separate window from the main one, with its own tracker entry. Targeting the app's name gets you the library window.
+- **Switching the layer to Markers is what makes badges appear** — `markersVisible` starts `false` and the layer switcher sets it (`setMarkersVisible(layer === 'markers')`). There is no separate toggle to hunt for on the markers layer.
+- **Zoom to 185%.** At the default fit-to-window zoom the dialog text is too small to read in the final panel, and the `auto` beautify preset renders a canvas slightly smaller than the source (inset and scale), so image coordinates and canvas coordinates stop being the same number — which matters if you are checking placement by measurement rather than by eye.
 
 Panel 2 is a screenshot of the agent's output, not of the app. Keep the coordinates visible in it if they fit — that's the evidence that panel 3 wasn't eyeballed.
 
@@ -55,7 +63,45 @@ Take a beat on why this is the *right* asset rather than a fallback. The claim b
 
 **Panel 2 — the OCR output.** A screenshot of the tool result: the transcript, with at least one word visibly carrying a low confidence score. If everything comes back at 95+, shrink the browser window a little and re-shoot — the honest version of this asset needs one uncertain word in it.
 
+The real run produced a better result than this scenario originally hoped for, and it's worth reproducing rather than improving on:
+
+| Identifier | Tesseract read | Confidence |
+| --- | --- | --- |
+| `pi_3QxT8mKz2Lp0Wn41` | `pi_30xT@nkz2Lpovin4` | **6.9** |
+| `card_declined (insufficient_funds)` | correct | 91.7 / 87.9 |
+| `req_8fJq2LmNv4Xc` | correct | 48.1 |
+
+The first is mangled — `Q`→`0`, `8m`→`@n`, `0Wn41`→`ovin4` — and reported at 6.9% rather than asserted. The third is read **correctly** and still only claims 48%. That pair is the argument: a tool that is wrong and says so, beside a tool that is right and stays modest. Put both in the panel if they fit; the 6.9% alone is worth the asset.
+
 **Panel 3 — the marker layer, live in Lazy Shot.** The same capture with ①②③ landing exactly on the three identifiers, shot from the app. Caption: `grab-payment-error-markers`.
+
+## Checking placement, if you check it at all
+
+Badge coordinates are the badge **centre**, in source-image pixels — so a word's box centre (`x + width/2`, `y + height/2`) goes in unmodified. Don't compensate for anything.
+
+If you do want to verify the badges landed where you asked rather than trusting your eye, verify against a **1:1 canvas**. On the `auto` preset the compositor composes onto a canvas a little smaller than the source, so a badge measured in the screenshot of the compositor sits at `origin + position × imageScale × zoom`, and comparing that to raw image coordinates will show a drift that is not really there. Ask for `original`, or zoom until the header reads the source's own dimensions, and then image pixels and canvas pixels are the same number.
+
+Keep badges modest — `size: 24` here. A badge is drawn centred on the token, so it covers part of it; panel 1 and panel 2 are what carry legibility of the identifiers, and panel 3 only has to show that the numbers landed.
+
+## Compose
+
+Panel 2 is typeset, not screenshotted from a terminal: [`a7/ocr-panel.html`](./a7/ocr-panel.html), rendered by the shared script. Every value in it is verbatim from the real call.
+
+```bash
+./scripts/render-html.sh scenarios/a7/ocr-panel.html /tmp/a7/p2.png 1280 366
+```
+
+A terminal screenshot would have been more literally "the agent's output", but it also puts whatever else is in your scrollback into a public repository, and it goes illegible below about 900 px. Typesetting real numbers is the honest trade; inventing one is not, so re-run the call rather than editing the HTML if the subject changes.
+
+The two captures are cropped to the same rectangle of the same underlying image — 514 × 282 from the source at 1:1, and the corresponding 1001 × 549 from the compositor capture at 195%, both scaled to 592 × 325. Then captions, a 40 px gutter, and the OCR panel stacked underneath:
+
+```bash
+ffmpeg -i "$SRC" -vf "crop=514:282:703:734,scale=592:325:flags=lanczos" p1.png
+ffmpeg -i "$CMP" -vf "crop=1001:549:332:490,scale=592:325:flags=lanczos" p3.png
+# caption each, pad to a 40 px gutter, hstack, then vstack the OCR panel
+```
+
+Recompute all four crop rectangles for your own window size. The two must frame the same region of the same image, or the reader reads a difference that isn't there.
 
 ## The detail that makes it
 

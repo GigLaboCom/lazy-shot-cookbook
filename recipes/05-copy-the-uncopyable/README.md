@@ -6,7 +6,9 @@
 
 The twist that makes this recipe different from "take a screenshot and ask the model": Lazy Shot has **two** ways to read a screen, and they fail in opposite directions. Choosing correctly is the whole skill.
 
-<!-- TODO(assets): A7 — assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png — spec in docs/ASSETS.md -->
+![An unselectable payment error dialog beside the same capture open in Lazy Shot with three numbered markers landing on its identifiers, above a table of what Tesseract read for each one, its confidence, its bounding box and the marker coordinate derived from it](../../assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png)
+
+*Read the first row. Tesseract mangled the PaymentIntent id — and reported 6.9% rather than asserting it. The third row it read **correctly**, and still only claims 48%. Every marker coordinate on the right is the centre of the bounding box on its left; measured after the fact, all three landed within 0.9 px of where they were asked to. Shot with the [A7 scenario](../../scenarios/A7-ocr-to-markers.md).*
 
 ## Two blades
 

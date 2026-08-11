@@ -69,7 +69,7 @@ The link preview. Seen more often than the README itself, by people who haven't 
 **Embed** — README, replacing the placeholder under the recipe table, and at the top of recipe 00:
 
 ```markdown
-![Six screenshots of the same window, each captured by the agent after a code change, the layout converging on the intended design](./assets/recipes/00-see-what-you-shipped/iteration-series.gif)
+![The same pricing card captured after each code change, the layout converging on the intended design as the agent fixes one defect at a time](./assets/recipes/00-see-what-you-shipped/iteration-series.gif)
 ```
 
 ---
@@ -152,7 +152,7 @@ The most technically interesting asset in the set — nothing else on the market
 
 **Must contain:** three panels — (1) an unselectable error dialog, captured; (2) the `ocr_screenshot` output as verbatim text, with one low-confidence word visibly flagged; (3) the marker layer open in Lazy Shot, markers toggled on, ①②③ landing precisely on the words the agent was asked about — placed from OCR bounding boxes rather than by eye.
 
-**Produce:** capture a real error dialog, call `ocr_screenshot` with `format: "metadata"`, take the word boxes, feed the centres to `add_markers`. Panel 2 is a screenshot of the tool output. **Panel 3 must be a capture of the app** — markers are metadata and never appear in the layer's own file, so composing panel 3 from that file yields a blank panel ([why](./TOOLS.md#add_markers)). Compositor for the layout.
+**Produce:** ✅ **done** — shot 2026-08-11; see the scenario for the crops and the ffmpeg composition. Capture a real error dialog, call `ocr_screenshot` with `format: "metadata"`, take the word boxes, feed the centres to `add_markers`. Panel 2 is a screenshot of the tool output. **Panel 3 must be a capture of the app** — markers are metadata and never appear in the layer's own file, so composing panel 3 from that file yields a blank panel ([why](./TOOLS.md#add_markers)). Compositor for the layout.
 
 **The point it must make:** the markers are *derived from* the OCR boxes. Consider a hairline connecting a word in panel 2 to its marker in panel 3 — that single line is the whole idea.
 

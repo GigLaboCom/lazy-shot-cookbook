@@ -14,3 +14,9 @@ node_modules/
 # Local scratch — captures land here while drafting recipes, never commit raw ones
 scratch/
 *.local.md
+
+# Local agent settings. Deliberately not shipped: a committed permission
+# allowlist is granted to everyone who clones the repo and starts an agent in
+# it, which is not a decision this repository gets to make for its readers.
+# The MCP server config that IS worth sharing lives in examples/ instead.
+.claude/

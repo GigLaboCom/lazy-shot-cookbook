@@ -1,0 +1,106 @@
+<!doctype html>
+<!--
+  Source for assets/brand/og-1200x630.png — the repository's social preview.
+
+  Rendered by ./render.sh, not by hand. Edit this file, re-run the script,
+  look at the PNG. Every number below is load-bearing; see the safe-area
+  note in ../A1-og-image.md before moving anything.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lazy Shot Cookbook — social preview</title>
+    <style>
+      /* The canvas is exactly the OG size. Chrome is told to open a window
+         of the same size, so what you see is what ships — no scaling. */
+      :root {
+        --ink: #0b0d10;
+        --accent: #8b0000; /* the icon's red, used solid */
+        --accent-lit: #e05252; /* lightened for type: #8b0000 on near-black is unreadable */
+        --muted: #9aa4b2;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* A single red bloom behind the icon. Keeps the frame from reading as a
+         black rectangle at thumbnail size without adding a second colour. */
+      .bloom {
+        position: absolute;
+        left: 50px;
+        top: 55px;
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(139, 0, 0, 0.55) 0%, rgba(139, 0, 0, 0) 68%);
+      }
+
+      .frame {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        display: flex;
+        align-items: center;
+        gap: 64px;
+        /* Safe area: nothing meaningful in the outer 100px / 65px. */
+        padding: 65px 110px;
+      }
+
+      .icon { width: 260px; height: 260px; flex: 0 0 260px; }
+
+      .copy { display: flex; flex-direction: column; gap: 18px; }
+
+      h1 {
+        font-size: 82px;
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .tagline {
+        font-size: 44px;
+        line-height: 1.15;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--accent-lit);
+      }
+
+      .rule {
+        width: 96px;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--accent);
+        margin: 6px 0 2px;
+      }
+
+      /* The subline is the first thing to go illegible at 300px wide. If you
+         shrink it, re-run the thumbnail check in ../A1-og-image.md. */
+      .subline {
+        font-size: 27px;
+        line-height: 1.4;
+        color: var(--muted);
+        letter-spacing: 0.005em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bloom"></div>
+    <div class="frame">
+      <img class="icon" src="../../assets/brand/lazy-shot-icon-white.svg" alt="" />
+      <div class="copy">
+        <h1>Lazy Shot<br />Cookbook</h1>
+        <div class="rule"></div>
+        <p class="tagline">Give your agent eyes.</p>
+        <p class="subline">23 MCP tools · macOS + Windows · one-time licence</p>
+      </div>
+    </div>
+  </body>
+</html>

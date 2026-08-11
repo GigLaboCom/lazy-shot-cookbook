@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <mask id="cutout" maskUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="2000">
+      <rect x="-500" y="-500" width="2000" height="2000" fill="white" />
+      <!-- Eye area (transparent around pupils) -->
+      <ellipse cx="165" cy="270" rx="20" ry="22" fill="black" />
+      <ellipse cx="235" cy="270" rx="20" ry="22" fill="black" />
+      <!-- Nose -->
+      <path d="M200 295 L190 310 L210 310 Z" fill="black" />
+      <!-- Mouth lines -->
+      <path d="M200 310 L200 320 Q190 335 180 325" fill="none" stroke="black" stroke-width="2.5"/>
+      <path d="M200 320 Q210 335 220 325" fill="none" stroke="black" stroke-width="2.5"/>
+      <!-- Whiskers -->
+      <g stroke="black" stroke-width="2" fill="none">
+        <line x1="130" y1="300" x2="170" y2="310"/>
+        <line x1="125" y1="315" x2="168" y2="320"/>
+        <line x1="130" y1="330" x2="170" y2="325"/>
+        <line x1="270" y1="300" x2="230" y2="310"/>
+        <line x1="275" y1="315" x2="232" y2="320"/>
+        <line x1="270" y1="330" x2="230" y2="325"/>
+      </g>
+      <!-- Cross pendant -->
+      <g transform="translate(200, 400)">
+        <rect x="-3" y="0" width="6" height="30" fill="black"/>
+        <rect x="-10" y="8" width="20" height="6" fill="black"/>
+        <ellipse cx="0" cy="0" rx="5" ry="5" fill="black"/>
+      </g>
+      <path d="M200 380 L200 395" stroke="black" stroke-width="2.5" fill="none"/>
+    </mask>
+  </defs>
+
+  <!-- ==================== CROSSHAIR ==================== -->
+  <circle cx="300" cy="300" r="250" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <line x1="300" y1="50" x2="300" y2="150" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <line x1="300" y1="550" x2="300" y2="450" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <line x1="50" y1="300" x2="150" y2="300" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <line x1="550" y1="300" x2="450" y2="300" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- ==================== CAT (white) ==================== -->
+  <g transform="translate(300, 300) scale(0.85) translate(-200, -325)">
+    <g mask="url(#cutout)">
+      <!-- Smoke wisps -->
+      <g opacity="0.4" fill="none" stroke="#ffffff" stroke-width="2">
+        <path d="M320 180 Q330 160 320 140 Q310 120 320 100 Q330 80 325 60">
+          <animate attributeName="d"
+            values="M320 180 Q330 160 320 140 Q310 120 320 100 Q330 80 325 60;
+                    M325 180 Q315 160 325 140 Q335 120 325 100 Q315 80 320 60;
+                    M320 180 Q330 160 320 140 Q310 120 320 100 Q330 80 325 60"
+            dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M330 190 Q345 165 335 145 Q325 125 340 105 Q355 85 345 65" opacity="0.3">
+          <animate attributeName="d"
+            values="M330 190 Q345 165 335 145 Q325 125 340 105 Q355 85 345 65;
+                    M335 190 Q320 165 330 145 Q340 125 325 105 Q310 85 320 65;
+                    M330 190 Q345 165 335 145 Q325 125 340 105 Q355 85 345 65"
+            dur="4s" repeatCount="indefinite"/>
+        </path>
+      </g>
+
+      <!-- Robe -->
+      <ellipse cx="200" cy="480" rx="140" ry="80" fill="#ffffff"/>
+      <path d="M100 350 Q80 400 60 480 L340 480 Q320 400 300 350 Q250 370 200 370 Q150 370 100 350" fill="#ffffff"/>
+      <path d="M120 360 Q100 410 85 480 L315 480 Q300 410 280 360 Q240 375 200 375 Q160 375 120 360" fill="#ffffff"/>
+
+      <!-- Collar -->
+      <path d="M150 340 L140 380 L160 420 L200 430 L240 420 L260 380 L250 340" fill="#ffffff"/>
+      <path d="M155 345 L147 380 L165 415 L200 423 L235 415 L253 380 L245 345" fill="#ffffff"/>
+
+      <!-- Head -->
+      <ellipse cx="200" cy="280" rx="85" ry="75" fill="#ffffff"/>
+
+      <!-- Ears -->
+      <path d="M120 220 L105 140 L155 195 Z" fill="#ffffff"/>
+      <path d="M280 220 L295 140 L245 195 Z" fill="#ffffff"/>
+      <path d="M125 215 L115 155 L150 200 Z" fill="#ffffff"/>
+      <path d="M275 215 L285 155 L250 200 Z" fill="#ffffff"/>
+
+      <!-- Biretta -->
+      <rect x="130" y="160" width="140" height="35" rx="3" fill="#ffffff"/>
+      <rect x="125" y="155" width="150" height="10" rx="2" fill="#ffffff"/>
+
+      <!-- Hat ridges -->
+      <path d="M130 160 L150 120 L170 160" fill="#ffffff" stroke="#ffffff" stroke-width="1"/>
+      <path d="M170 160 L200 110 L230 160" fill="#ffffff" stroke="#ffffff" stroke-width="1"/>
+      <path d="M230 160 L250 120 L270 160" fill="#ffffff" stroke="#ffffff" stroke-width="1"/>
+
+      <!-- Pompom -->
+      <circle cx="200" cy="105" r="15" fill="#ffffff"/>
+      <circle cx="200" cy="105" r="12" fill="#ffffff"/>
+
+      <!-- Face markings -->
+      <ellipse cx="200" cy="300" rx="55" ry="45" fill="#ffffff"/>
+
+      <!-- Eyes (outers cut out by mask, drawn here for shape) -->
+      <ellipse cx="165" cy="270" rx="20" ry="22" fill="#ffffff"/>
+      <ellipse cx="235" cy="270" rx="20" ry="22" fill="#ffffff"/>
+
+      <!-- Mouth area -->
+      <ellipse cx="185" cy="320" rx="18" ry="12" fill="#ffffff"/>
+      <ellipse cx="215" cy="320" rx="18" ry="12" fill="#ffffff"/>
+
+      <!-- Cigar -->
+      <g transform="rotate(-15, 260, 330)">
+        <rect x="235" y="320" width="80" height="14" rx="3" fill="#ffffff"/>
+        <rect x="235" y="322" width="80" height="5" fill="#ffffff"/>
+        <rect x="305" y="320" width="15" height="14" rx="2" fill="#ffffff"/>
+        <rect x="315" y="320" width="5" height="14" rx="1" fill="#ffffff"/>
+        <rect x="250" y="318" width="15" height="18" rx="1" fill="#ffffff"/>
+        <rect x="252" y="320" width="11" height="14" rx="1" fill="#ffffff"/>
+      </g>
+
+      <!-- Paw -->
+      <ellipse cx="250" cy="350" rx="25" ry="20" fill="#ffffff"/>
+      <circle cx="238" cy="362" r="8" fill="#ffffff"/>
+      <circle cx="252" cy="365" r="8" fill="#ffffff"/>
+      <circle cx="265" cy="360" r="7" fill="#ffffff"/>
+
+      <!-- Cross pendant -->
+      <g transform="translate(200, 400)">
+        <rect x="-3" y="0" width="6" height="30" fill="#ffffff"/>
+        <rect x="-10" y="8" width="20" height="6" fill="#ffffff"/>
+        <ellipse cx="0" cy="0" rx="5" ry="5" fill="#ffffff"/>
+      </g>
+      <path d="M200 380 L200 395" stroke="#ffffff" stroke-width="2" fill="none"/>
+
+      <!-- Fur texture -->
+      <g stroke="#ffffff" stroke-width="0.5" opacity="0.5">
+        <path d="M140 260 Q145 265 140 270"/>
+        <path d="M260 260 Q255 265 260 270"/>
+        <path d="M180 340 Q185 345 180 350"/>
+        <path d="M220 340 Q215 345 220 350"/>
+      </g>
+    </g>
+    <!-- Pupils (white on dark bg) -->
+    <ellipse cx="165" cy="270" rx="8" ry="18" fill="#ffffff"/>
+    <ellipse cx="235" cy="270" rx="8" ry="18" fill="#ffffff"/>
+  </g>
+</svg>

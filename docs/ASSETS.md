@@ -50,7 +50,7 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Must contain:** the cat-in-crosshair icon; the words **Lazy Shot Cookbook**; the line **Give your agent eyes.**; the subline `23 MCP tools · macOS + Windows`. Dark background, the icon's dark red as the accent.
 
-**Produce:** compose in the Compositor at a custom 1200×630 canvas, or in any design tool — this is the one asset that isn't a screenshot of anything.
+**Produce:** ✅ **done** — `./scenarios/og/render.sh` renders [`scenarios/og/og.html`](../scenarios/og/og.html) with headless Chrome. Edit the HTML and re-run to change it. (This is the one asset that isn't a screenshot of anything, so composing it in the Compositor or any design tool is equally fine.)
 
 **Note:** GitHub only uses a repo's social preview if you upload it in Settings → General → Social preview. The file in the repo is the source; uploading it is a separate step.
 

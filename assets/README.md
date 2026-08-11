@@ -4,7 +4,7 @@ Images used by the cookbook. The per-file specification — what each asset must
 
 ## Two rules
 
-1. **Everything here is made with Lazy Shot.** Captured with the app, arranged and beautified in the Compositor. A cookbook for a screenshot tool illustrated with someone else's screenshot tool would be embarrassing.
+1. **Every pixel of product here is captured with Lazy Shot.** A cookbook for a screenshot tool illustrated with someone else's screenshot tool would be embarrassing. Assembly is a separate matter: layout goes through the Compositor (the Beautify window), and animation goes through `ffmpeg`, because Lazy Shot doesn't do animation. Neither of those is a screenshot tool, so neither breaks the rule.
 2. **Nothing sensitive.** No tokens, emails, customer names, or file paths with real usernames. Redact in-app with **Spoiler** (heavy pixelation), not Blur — light blur over text can be reversed, and this repo says so out loud.
 
 ## Layout
@@ -19,9 +19,13 @@ assets/
 
 ## Recordings
 
-Lazy Shot captures stills; it has no video or GIF recording, and the Compositor exports PNG, JPEG and WebP. So the two GIFs and the demo video are recorded with your screen-recording tool of choice — what matters is that everything in frame is Lazy Shot doing real work at real speed.
+Lazy Shot captures stills; it has no video or GIF recording, and the Compositor exports PNG, JPEG and WebP. So anything that moves is assembled elsewhere.
 
-Shot-by-shot scenarios with timings are in [docs/ASSETS.md](../docs/ASSETS.md#scenarios). An alternative for the two GIFs: export the capture sequence from the library and assemble the frames with `ffmpeg`, so every frame is a genuine library item.
+**Prefer stitching stills over screen recording.** Every frame of a stitched GIF is a real library item captured by a real tool call, the timing is a number in a text file instead of a thing you have to perform, and a bad frame is reshot on its own instead of forcing a whole retake. The A2 GIF is built this way — four captures, `ffmpeg` for the crop, the caption and the timing. [The full command](../scenarios/A2-iteration-series.md#stitch).
+
+Screen recording is the fallback for footage that genuinely has to be continuous — the demo video, mainly. There, what matters is that everything in frame is Lazy Shot doing real work at real speed.
+
+Shot-by-shot scenarios with timings are in [docs/ASSETS.md](../docs/ASSETS.md#scenarios).
 
 ## Conventions
 

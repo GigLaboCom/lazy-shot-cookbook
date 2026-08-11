@@ -78,37 +78,53 @@ If you'd rather have the agent write these itself rather than applying them from
 
 ## Captions
 
-Burn the keyword into each frame before stitching — bottom-left, small, monospace, on a translucent strip. Half of this asset's job is making the naming convention visible; without the captions it's just a layout changing.
+Burn the keyword into each frame — bottom-left, small, monospace, on a dark strip. Half of this asset's job is making the naming convention visible; without the captions it's just a layout changing.
 
-The Compositor does this in one pass per frame.
+You could do this by hand in the Compositor with the text tool, one pass per frame. Don't — it's four manual passes that have to land on the same pixel, and the crop has to happen first anyway. Do it in the same ffmpeg step as the crop, below.
 
 ## Stitch
 
-Export the four frames from the library at identical dimensions, name them `01.png` … `04.png`, then:
+Export the four frames from the library at identical dimensions and name them `01.png` … `04.png`. Then crop, scale and caption each one:
+
+```bash
+FONT=/System/Library/Fonts/Menlo.ttc      # any monospace TTF/TTC
+i=0
+for kw in hero-before hero-iter-1 hero-iter-2 hero-after; do
+  i=$((i+1)); n=$(printf "%02d" $i)
+  ffmpeg -y -i $n.png -vf \
+"crop=700:440:610:124,\
+scale=1280:-2:flags=lanczos,\
+drawtext=fontfile=$FONT:text='$kw':fontcolor=white:fontsize=26\
+:x=28:y=h-28-th:box=1:boxcolor=0x0b1220@0.88:boxborderw=14" \
+    c$n.png
+done
+```
+
+The `crop` values are the ones used for the shipped asset: they trim the browser chrome and the dead space under the card. Recompute them for your own window size — take them from one frame, then apply the same rectangle to all of them. The dead space that's left under the card is deliberate; it's where the caption sits.
+
+Then stitch. Note the crop and scale are already done, so this filter chain only does timing and the palette:
 
 ```text
-# frames.txt
-file '01.png'
+# cframes.txt
+file 'c01.png'
 duration 1.6
-file '02.png'
+file 'c02.png'
 duration 1.4
-file '03.png'
+file 'c03.png'
 duration 1.4
-file '04.png'
+file 'c04.png'
 duration 2.5
-file '04.png'
+file 'c04.png'
 ```
 
 ```bash
-ffmpeg -f concat -safe 0 -i frames.txt -t 6.9 \
-  -vf "fps=12,crop=700:440:610:124,scale=1280:-2:flags=lanczos,split[s0][s1];\
+ffmpeg -f concat -safe 0 -i cframes.txt -t 6.9 \
+  -vf "fps=12,split[s0][s1];\
 [s0]palettegen=stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=3" \
   -loop 0 -y iteration-series.gif
 ```
 
-The `crop` values are the ones used for the shipped asset: they trim the browser chrome and the dead space under the card. Recompute them for your own window size — take them from one frame, then apply the same rectangle to all of them.
-
-Two quirks worth knowing, both handled above: the concat demuxer ignores the **last** entry's duration, which is why `04.png` is listed twice; and that repeat would otherwise double the closing hold, which is why `-t` trims the total to the sum of the durations. Verified on ffmpeg 8.0 — the shipped asset lands at 6.91 s.
+Two quirks worth knowing, both handled above: the concat demuxer ignores the **last** entry's duration, which is why `c04.png` is listed twice; and that repeat would otherwise double the closing hold, which is why `-t` trims the total to the sum of the durations. Verified on ffmpeg 8.0 — the shipped asset lands at 6.91 s, 1280×804, 266 KB.
 
 Over 5 MB? Drop `fps` to 10 before touching the width. Legible captions matter more than smooth motion in a four-frame loop.
 

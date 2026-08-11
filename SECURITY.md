@@ -2,9 +2,9 @@
 
 ## Reporting a vulnerability
 
-**In this repository** (a recipe that leaks data, a malicious example config, a script issue): open a [private security advisory](https://github.com/GigLaboCom/lazy-shot-cookbook/security/advisories/new), or email **[security@giglabo.com](mailto:security@giglabo.com)**.
+**In this repository** (a recipe that leaks data, a malicious example config, a script issue): open a [private security advisory](https://github.com/GigLaboCom/lazy-shot-cookbook/security/advisories/new), or email **[lazy-shot@giglabo.com](mailto:lazy-shot@giglabo.com)**.
 
-**In Heretic Lazy Shot itself** (the desktop app or its MCP server): email **[security@giglabo.com](mailto:security@giglabo.com)**. Please don't file a public issue for app vulnerabilities.
+**In Heretic Lazy Shot itself** (the desktop app or its MCP server): email **[lazy-shot@giglabo.com](mailto:lazy-shot@giglabo.com)**. Please don't file a public issue for app vulnerabilities.
 
 Include what you did, what happened, and what you expected. If the issue involves the MCP server, the relevant `[MCP]`-tagged excerpt from the newest log in `~/.heretic-lazy-shot/logs/` helps — with anything sensitive removed. We aim to acknowledge within three working days.
 

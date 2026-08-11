@@ -6,7 +6,9 @@
 
 **The premise, stated honestly:** Lazy Shot never watches your screen. There is no observe-until-something-changes mode; capture is **directed** — the agent shoots exactly what it's told, when it's told, one explicit tool call at a time. Note the flip side while you're here: a capture is silent, with no on-screen indicator, so what you audit is the `[MCP]` lines in the app log, not a visual cue. So this recipe is really about the *protocol*: who puts the right state on screen, and who calls the shot. There are three rungs.
 
-<!-- TODO(assets): A2 — assets/recipes/00-see-what-you-shipped/iteration-series.gif — spec in docs/ASSETS.md -->
+![The same pricing card captured after each code change, the layout converging on the intended design as the agent fixes one defect at a time](../../assets/recipes/00-see-what-you-shipped/iteration-series.gif)
+
+*Four captures, one per iteration: `hero-before` → `hero-iter-1` → `hero-iter-2` → `hero-after`. Shot with the [A2 scenario](../../scenarios/A2-iteration-series.md).*
 
 ## The autonomy ladder
 
@@ -73,7 +75,8 @@ Every `-iter-N` capture stays in the library: scroll the series and you *watch t
 
 ## Gotchas
 
-- **`capture_active_window` is a trap in coding sessions** — the focused window is the terminal the agent lives in. Always `capture_window` by process. This is the single most common mistake in this workflow, and the tool's own description warns about it.
+- **`capture_active_window` is a trap in coding sessions** — the focused window is the terminal the agent lives in. The tool's own description warns about it. Less obviously, **`capture_tracked_window` with `stack_position: 1` is the same trap**: position 1 is "most recently focused", and every shell command the agent runs hands focus back to its terminal. We shot a whole frame of the agent's own transcript this way.
+- **Query the window title, not the process name.** `capture_window "Google Chrome"` matches *a* Chrome window — with several open, quite possibly the one with your email in it. The title is specific; the process name is a coin flip. This is the single most common mistake in this workflow.
 - The window must exist on a real, unlocked screen, unminimised, for the whole session. Occluded-window behaviour varies by platform — keep it visible if in doubt.
 - Agent vision judges presence, layout, colour and truncation well; it is not a pixel ruler. For "exactly 8px gap" polish, the human eye — or [recipe 06](../06-visual-regression-watch/)'s `magick compare` against a reference render — finishes the job.
 - Captures are silent — nothing flashes, nothing pops up. A 15-iteration session leaves 15 images in the library with no visible sign it happened. Convenient while you work, worth knowing about: if you want to see what the agent actually shot, that's `list_screenshots` or the `[MCP]` lines in the log.

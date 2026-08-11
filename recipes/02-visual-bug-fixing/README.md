@@ -4,7 +4,9 @@
 
 **Idea:** make the screenshot library the case file, and make the agent maintain it.
 
-<!-- TODO(assets): A4 — assets/recipes/02-visual-bug-fixing/before-after.png — spec in docs/ASSETS.md -->
+![A checkout screen showing a NaN discount and a NaN total, beside the same screen after the fix showing minus 34.80 and a total of 313.20](../../assets/recipes/02-visual-bug-fixing/before-after.png)
+
+*The evidence pair a fix should leave behind: `checkout-before` and `checkout-after`, same window, same crop, only the numbers differ. Shot with the [A4 scenario](../../scenarios/A4-before-after.md).*
 
 ## Six principles
 
@@ -61,6 +63,6 @@ An agent transcribing a stack trace from pixels by eye will, sooner or later, si
 ## Gotchas
 
 - Blur and Spoiler are **in-app annotation tools**, not MCP tools — redaction stays a deliberate human act, by design. The agent can remind, stage the image with `show_window`, and stop there.
-- Markers are metadata until export; the annotated *copy* is what you attach to the tracker.
+- **Markers are a layer, not pixels.** `add_markers` returns an entry whose file has the *same* pixels as the source; the badges live in `metadata.markers`. Attaching that path to a ticket gets you an unannotated screenshot. Flattening is an export from the app — a human step. The agent's job ends at placing the markers and saying so.
 - Keywords describe content, not time. The on-disk filename pattern already handles chronology.
 - If the bug is in a window you've since left, `capture_tracked_window` is more reliable than asking the user to re-navigate — provided the Activity Tracker is on.

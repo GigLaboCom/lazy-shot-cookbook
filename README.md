@@ -25,6 +25,10 @@ from Claude Code, Claude Desktop, Cursor, VS Code, n8n, or any MCP client.
 
 Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beautify, OCR, and manage a searchable library. This repo is about the other half: **the same app is a headless screenshot service for agents.** Your agent captures windows, names screenshots with memorable keywords, places numbered markers, runs on-device OCR, and searches the whole library — while you keep working.
 
+![The same pricing card captured after each code change, the layout converging on the intended design as the agent fixes one defect at a time](./assets/recipes/00-see-what-you-shipped/iteration-series.gif)
+
+*An agent fixing a layout, one defect per iteration — and looking at the result before claiming it's done. Every frame is a real capture, named `hero-before` through `hero-after`. → [recipe 00](./recipes/00-see-what-you-shipped/)*
+
 **Why agents need this**
 
 - **Eyes.** Agents work blind. A capture tool returns a `file_path`; a local agent reads the image and finally sees what you see.
@@ -73,8 +77,6 @@ Stuck? → [docs/SETUP.md](./docs/SETUP.md) has the per-client details and the t
 | 03 | [Navigating complex sites](./recipes/03-complex-site-navigation/) | Lazy Shot as the *eyes* of a browser agent — plus a flight recorder for the whole session | `capture_window`, `capture_region`, `list_displays` |
 | 04 | [Release-day batch capture](./recipes/04-release-day-batch-capture/) | Sweep every window and every monitor in one agent run | `list_tracked_windows`, `capture_tracked_window`, `capture_display` |
 | 05 | [Copy the uncopyable](./recipes/05-copy-the-uncopyable/) | On-device OCR + agent vision on text you can't select: error dialogs, RDP, screen shares, BI tables | `ocr_screenshot`, `capture_region`, `add_markers` |
-
-<!-- TODO(assets): A2 — assets/recipes/00-see-what-you-shipped/iteration-series.gif goes here as the hero. Spec: docs/ASSETS.md -->
 
 ### Proposed — the roadmap in the open
 

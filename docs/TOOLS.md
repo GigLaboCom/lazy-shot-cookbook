@@ -43,6 +43,8 @@ Capture a window by title or process name (fuzzy match). **The default capture t
 
 Survives the window moving; does not survive it being resized (see [recipe 06](../recipes/06-visual-regression-watch/) on stability).
 
+**The query matches process names too, and that is a trap when several windows of the same app are open.** Query `"Google Chrome"` and you get *a* Chrome window — quite possibly the one with your email in it, not the one you meant. Prefer the **window title**, which is far more specific. If the titles collide as well (a hash-routed app keeps one `<title>` across routes), fall back to `list_tracked_windows` and confirm what you're aiming at before you shoot.
+
 ### `capture_display`
 
 Capture an entire monitor.
@@ -73,6 +75,8 @@ Capture a window from the Activity Tracker stack — "the window I was just in".
 | `keyword` | string | yes | Label assigned in the same call |
 
 Give either `stack_position` or `title`. Requires the **windowTracker** feature flag (Settings → Experimental). Windows that have closed since they were tracked will error — skip and report, don't retry.
+
+> **`stack_position: 1` is the same trap as `capture_active_window`, wearing a different hat.** Position 1 means "most recently focused", and in an agent session that is very often the terminal the agent is running in — every shell command it runs can put the focus back there. Match by `title` instead: it is the only selector in this tool set that does not move when focus does.
 
 ### `list_displays`
 
@@ -174,7 +178,11 @@ Create an annotated screenshot from a source screenshot.
 
 \* Give either `markers` or `preset_name`.
 
-Default behaviour forks a copy, so the pristine original stays available for diffing. Reference the copy in docs and issues.
+Default behaviour forks a copy, so the pristine original stays available for diffing.
+
+**What you get back is a marker *layer*, not an annotated picture.** The new entry has `type: "markers"`, its `metadata.markers` array holds the positions, and its `file_path` points at a file whose pixels are still identical to the source. Nothing is drawn into the raster. That is what makes markers relabelable and reusable across versions — and it means an agent cannot produce a ready-to-publish annotated image on its own. Flattening happens on **export from the app**, which is a human step at the Compositor.
+
+Practical consequence for any workflow that ends in a published image: the agent places the markers and hands over; a person exports. Plan the extra step in rather than discovering it when you paste the path into a README and see an unannotated screenshot.
 
 ### `list_marker_presets`
 

@@ -11,10 +11,10 @@ This machine runs **Heretic Lazy Shot** with an MCP server. Use it whenever you 
 
 ## Rules
 
-1. **To see something, capture it.** `capture_window` with a fuzzy query is the default. `capture_region` for exact coordinates (call `list_displays` first on multi-monitor). `capture_tracked_window` for "the window I was just in". Use `capture_active_window` only when the user is clearly driving — see rule 7.
+1. **To see something, capture it.** `capture_window` with a fuzzy query is the default — query the **window title**, not the process name, whenever more than one window of that app could be open. `capture_region` for exact coordinates (call `list_displays` first on multi-monitor). `capture_tracked_window` matched by `title` for "the window I was just in". Use `capture_active_window` only when the user is clearly driving — see rule 7.
 2. **Responses contain a `file_path`, never image data.** Read the image from that path with your file tools. Do not ask for base64.
 3. **Name every capture immediately.** The capture tools take a `keyword` argument — use it, and skip the second call. Short, kebab-case, describing *content* rather than time: `login-bug`, `checkout-step-3`, `pricing-table`. Collisions auto-suffix; from then on use the keyword that was **returned**, not the one you asked for.
-4. **Never annotate originals.** `add_markers` creates an annotated copy by default. Reference the copy in docs and issues; keep the original for diffing. Pass `edit_existing: true` only when the user explicitly asks to overwrite.
+4. **Never annotate originals.** `add_markers` forks a copy by default; keep the original for diffing. Pass `edit_existing: true` only when the user explicitly asks to overwrite. Note what the copy actually is: a **marker layer**, with the same pixels as the source. Say so when you hand over the path — if the user needs a picture with the badges drawn on it, they have to export it from the app; you cannot flatten it.
 5. **Find before you re-capture.** If a screenshot might already exist, `search_screenshots` by keyword first. It also takes `date_from` / `date_to`.
 6. **Deleting is safe.** `delete_screenshot` is a soft delete; the record stays, filterable by `status: "deleted"`.
 7. **`capture_active_window` is a trap in agent sessions.** The focused window is usually the terminal *you* are running in, not what the user sees. Prefer `capture_window` by process name, or `list_tracked_windows` first.

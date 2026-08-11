@@ -32,11 +32,13 @@ Click **Pay** to open the dialog. Chrome pinned.
 
 | # | Prompt to paste | Yields |
 | --- | --- | --- |
-| 1 | `capture_window query "Google Chrome", keyword "grab-payment-error". Report the file path.` | The capture |
+| 1 | `capture_tracked_window title "<the window title>", keyword "grab-payment-error". Report the file path.` | The capture |
 | 2 | `ocr_screenshot "grab-payment-error" with format "metadata". Print the full transcript, then a table of word → confidence for the three identifiers. Flag anything under 60 as unclear instead of guessing it.` | The transcript, screenshotted from the terminal |
 | 3 | `Using the bounding boxes you just got: take the centre of the PaymentIntent id, the decline reason and the request id, and add_markers on "grab-payment-error" numbering them ①②③ in reading order. Tell me which coordinates you used and which OCR box each came from.` | The annotated copy |
 
 Panel 2 is a screenshot of the agent's output, not of the app. Keep the coordinates visible in it if they fit — that's the evidence that panel 3 wasn't eyeballed.
+
+**Panel 3 needs a manual export, and this is the one scenario where that step is unavoidable.** `add_markers` produces a marker *layer*: the entry it returns has `type: "markers"`, the badge positions sit in `metadata.markers`, and the file's pixels are still identical to the source. Open it in the Compositor and export to flatten. The whole point of this asset is markers landing precisely on words — so an unflattened panel 3 is not a weaker version of the asset, it is a blank one.
 
 ## What each panel shows
 
@@ -60,6 +62,7 @@ Recipe 05, replacing the `TODO(assets): A7` placeholder:
 
 ## Checklist
 
+- [ ] Panel 3 exported from the Compositor — an unflattened marker layer shows no badges at all
 - [ ] Markers sit *on* the words, not near them — that precision is the claim
 - [ ] At least one low-confidence word visible in panel 2
 - [ ] The identifiers are readable at final size

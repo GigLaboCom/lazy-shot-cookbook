@@ -32,10 +32,16 @@ On screen: `-€NaN`, `€NaN`, and a button reading **Pay €NaN**.
 
 | # | State | Prompt to paste | Keyword |
 | --- | --- | --- | --- |
-| 1 | `./step.sh checkout-broken` | `capture_window query "Google Chrome", keyword "checkout-before". Then ocr_screenshot it and quote the broken values verbatim. Then add_markers numbered in repro order: ① the discount line, ② the total line, ③ the pay button. Give me the annotated copy's file path.` | `checkout-before` → `checkout-before-markers` |
-| 2 | `./step.sh checkout-fixed` | `capture_window query "Google Chrome", keyword "checkout-after". Confirm the three values now read €348.00, -€34.80 and €313.20, and print both file paths with a one-line PR summary.` | `checkout-after` |
+| 1 | `./step.sh checkout-broken` | `capture_tracked_window title "<the window title>", keyword "checkout-before". Then ocr_screenshot it and quote the broken values verbatim.` | `checkout-before` |
+| 2 | `./step.sh checkout-fixed` | `capture_tracked_window title "<the window title>", keyword "checkout-after". Confirm the three values now read €348.00, -€34.80 and €313.20, and print both file paths with a one-line PR summary.` | `checkout-after` |
 
-Use the **annotated copy** for panel 1, not the original. `add_markers` forks, and showing the fork is half of recipe 02's argument.
+Target the window by **title**. The process name matches any window of that app, which during this shoot meant capturing a personal inbox instead of the demo.
+
+### On the markers
+
+Recipe 02 places numbered repro markers, and you can do that here — `add_markers` on `checkout-before`, badges on the discount line, the total and the pay button. But know what you get: a **marker layer**, whose file still has the source's pixels. Publishing it needs an export from the Compositor, by hand.
+
+The shipped asset skips them. `-€NaN` does not need an arrow pointing at it, and the markers earn their place in [A7](./A7-ocr-to-markers.md), where their positions come from OCR boxes and the precision *is* the message. Add them here only if you're willing to do the export.
 
 ## Expected output after the fix
 

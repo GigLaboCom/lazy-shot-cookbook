@@ -18,11 +18,13 @@ The settings screen has four labelled rows: workspace name, default currency, we
 
 | # | Prompt to paste | Yields |
 | --- | --- | --- |
-| 1 | `capture_window query "Google Chrome", keyword "settings-step-1". Report the file path.` | The raw capture |
+| 1 | `capture_tracked_window title "<the window title>", keyword "settings-step-1". Report the file path.` | The raw capture |
 | 2 | `add_markers on "settings-step-1", keyword "settings-step-1-markers", numbering the four controls in reading order: ① workspace name, ② default currency, ③ weekly digest, ④ retention. Give me the copy's path — do not touch the original.` | The annotated copy |
 | 3 | `Read the annotated copy and write the docs snippet: the image, then a numbered caption list where each number matches its marker. Then ocr_screenshot "settings-step-1" and confirm every control label you wrote actually appears in the OCR text.` | The rendered docs |
 
 The OCR check in panel 3 doesn't appear in the final image, but keep it in the run — it's what stops a docs page from describing a button that was renamed.
+
+**Panel 2 needs a manual export.** `add_markers` returns a marker layer, not an annotated picture: the badges live in metadata and the file's pixels match the source. Open `settings-step-1-markers` in the Compositor and export it before composing. Panels 1 and 2 are supposed to look different — that difference only exists after the export.
 
 ## Expected docs output
 
@@ -59,6 +61,7 @@ Recipe 01, replacing the `TODO(assets): A3` placeholder:
 
 ## Checklist
 
+- [ ] Panel 2 exported from the Compositor, so the badges are actually visible
 - [ ] Marker numbers match the caption numbers across panels 2 and 3
 - [ ] Both keywords legible — two files, visibly
 - [ ] Markers centred on the controls, not floating between rows

@@ -40,7 +40,10 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
 ## 30-second setup
 
 1. Open Lazy Shot → **Settings → MCP** → enable the MCP server.
-2. Default endpoint: `http://localhost:5055/mcp`, transport **streamable-http**. If 5055 is busy the server walks up to the next ten ports — the live one is shown in the UI and returned by `get_app_status`.
+
+   ![The MCP tab in Lazy Shot settings: the server running on port 5055, the enable toggle on, the bind address set to 127.0.0.1, and a ready-to-copy Claude Code connection snippet](./assets/setup/settings-mcp.png)
+
+2. Default endpoint: `http://localhost:5055/mcp`, transport **streamable-http**. If 5055 is busy the server walks up to the next ten ports — the live one is shown in the UI and returned by `get_app_status`. Leave **Bind Address** on `127.0.0.1` unless you know why you're changing it — see [SECURITY.md](./SECURITY.md).
 3. Connect your client:
 
    **Claude Code**

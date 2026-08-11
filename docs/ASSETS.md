@@ -32,7 +32,7 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 | A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | 1280 wide | ~10 s | Recipe 03 |
 | A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | 1280 wide | — | Recipe 04 |
 | A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | 1280 wide | — | Recipe 05 |
-| A8 | `assets/setup/settings-mcp.png` | Still | 900 wide | — | README setup + SETUP.md |
+| A8 | `assets/setup/settings-mcp.png` | Still | 1280 wide | — | README setup + SETUP.md |
 | A9 | `assets/setup/claude-code-connected.png` | Still | 900 wide | — | SETUP.md |
 | A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | 1920×1080 | 45 s | X thread, product page, Show HN |
 
@@ -170,7 +170,7 @@ The most technically interesting asset in the set — nothing else on the market
 
 **Must contain:** the Settings → MCP tab with the server enabled and the port visible. Crop to the panel; no desktop, no other windows.
 
-**Produce:** `capture_window` on Lazy Shot itself, light theme, then trim in the Compositor.
+**Produce:** ✅ **done** — `capture_window` on Lazy Shot itself, light theme, then crop to the settings panel. **Shot at 1280, not the 900 this spec originally asked for:** the app window is 1862 px wide and the settings panel 1668, so 900 renders labels like "Bind Address" at about 7 px. Check the scale before trusting a width in this table.
 
 **Watch for:** if your bind address is set to anything other than `127.0.0.1`, reset it before capturing — the security section tells readers to keep it on loopback, and the screenshot shouldn't contradict it.
 

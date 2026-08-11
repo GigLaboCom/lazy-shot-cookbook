@@ -9,7 +9,13 @@ Getting Heretic Lazy Shot connected to your agent, per client, plus what to do w
 3. **Screen-recording permission** granted to Lazy Shot. macOS: System Settings → Privacy & Security → Screen & System Audio Recording. Without it, captures come back empty or black.
 4. **Optional but recommended:** the Window Activity Tracker (Settings → Experimental). `list_tracked_windows` and `capture_tracked_window` need it; [recipe 04](../recipes/04-release-day-batch-capture/) is built on it.
 
+![The MCP tab in Lazy Shot settings: the server running on port 5055, the enable toggle on, the bind address set to 127.0.0.1, and a ready-to-copy Claude Code connection snippet](../assets/setup/settings-mcp.png)
+
+That panel is the whole of step 2, and it also answers three questions people ask afterwards: the live port, the bind address, and a connection snippet per client that you can copy instead of retyping anything from this page.
+
 If 5055 is taken, the server walks up to the next ten ports and binds the first one free. The live port is shown in the UI and returned by `get_app_status` — if a client can't connect, check there before debugging anything else.
+
+**Leave the bind address on `127.0.0.1`.** The dropdown also offers `0.0.0.0`, which exposes an unauthenticated screen-capture server to every host that can route to you. The app's CORS rule allows only localhost origins, but CORS is a browser rule — a direct HTTP client from another machine ignores it. Details in [SECURITY.md](../SECURITY.md). One side effect worth knowing: on `0.0.0.0` the connection snippets print `localhost`, and on `127.0.0.1` they print `127.0.0.1`. Both work.
 
 ## Licence and the free-tier quota
 

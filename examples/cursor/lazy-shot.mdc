@@ -1,0 +1,19 @@
+---
+description: How to use the Heretic Lazy Shot MCP server to see the screen, read unselectable text, and manage screenshots
+alwaysApply: true
+---
+
+This machine runs Heretic Lazy Shot with an MCP server. Use it whenever you need to see the screen, read text you can't select, or manage screenshots.
+
+- **To see something, capture it.** `capture_window` with a fuzzy query is the default. `capture_region` for exact coordinates (`list_displays` first on multi-monitor). `capture_tracked_window` for "the window I was just in".
+- **`capture_active_window` is a trap.** The focused window is usually this editor, not what the user is looking at. Prefer `capture_window` by process name.
+- **Responses contain a `file_path`, never image data.** Read the image from that path. Do not ask for base64.
+- **Name every capture in the same call.** The capture tools take a `keyword`: short, kebab-case, describing content rather than time (`login-bug`, `checkout-step-3`). Collisions auto-suffix — use the keyword that was returned.
+- **Never annotate originals.** `add_markers` forks an annotated copy by default. Reference the copy; keep the original for diffing.
+- **Find before re-capturing.** `search_screenshots` by keyword, with optional `date_from` / `date_to`.
+- **Deleting is safe.** `delete_screenshot` is a soft delete.
+- **Reading text: pick the right blade.** `ocr_screenshot` for exact characters, logs, error dialogs, and anything confidential — it's local Tesseract, nothing leaves the machine. Read the image yourself for structure and meaning. Say which one you used.
+
+When iterating on UI: the screen is the source of truth. After every visible change, `capture_window` by process name, read the file, and compare against the goal before claiming success. Keyword the series `<feature>-before`, `<feature>-iter-N`, `<feature>-after`, and output the before/after paths for the PR. You cannot click — reach states through code (dev flag, scratch route, forced state) and remove the scaffolding afterwards; only if code can't reach it, give a numbered stage direction and wait for a "go".
+
+Full cookbook: https://github.com/GigLaboCom/lazy-shot-cookbook

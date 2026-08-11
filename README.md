@@ -127,6 +127,8 @@ Full parameter reference: [docs/TOOLS.md](./docs/TOOLS.md).
 | `search_marker_presets` | Find presets by name |
 | `edit_screenshot` | Open the Beautify compositor on a capture |
 
+> Markers are a **metadata layer**: coordinates and labels stored as JSON, visible in the app, and never drawn into an image file — not by `add_markers`, not on export. They're how an agent points at something precisely; they are not how you get badges into a README. [The full story](./docs/TOOLS.md#add_markers).
+
 **OCR (3)** — Tesseract, ~125 languages, **fully on-device**.
 
 | Tool | What it does |
@@ -154,6 +156,7 @@ Honesty section, because you'd find out anyway:
 - **No scrolling capture**, no video or GIF recording. If that's your core need, CleanShot X (Mac) and Snagit are genuinely good at it.
 - **It never watches the screen.** There is no "observe until something changes" mode. Someone — you or the agent — decides each shot. That is a design position, not a gap.
 - **File-path-first means local-first.** The server binds to `127.0.0.1` and returns paths on *this* machine. Built for local agents (Claude Code, Claude Desktop, Cursor, self-hosted n8n), not remote SaaS runners.
+- **An agent can't produce a burned-in annotated image.** It places markers, which are metadata — visible in the app, never in a file. Arrows, boxes, blur and numbered counters are baked, but they're placed by hand in the app. Drawing on a screenshot stays a human act, on purpose.
 
 ## Get Lazy Shot
 

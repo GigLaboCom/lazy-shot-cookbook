@@ -162,7 +162,7 @@ Use it to hand control back to the human — "I've captured it, here's the app, 
 
 ## Markers & compositor (5)
 
-Markers are a **metadata layer**, not baked pixels: they can be moved, relabelled and reapplied without touching the raster underneath.
+Markers are a **metadata layer**, not baked pixels: they can be moved, relabelled and reapplied without touching the raster underneath — and they are never drawn into an exported file. Read [`add_markers`](#add_markers) before designing a workflow that ends in a published image.
 
 ### `add_markers`
 
@@ -180,9 +180,21 @@ Create an annotated screenshot from a source screenshot.
 
 Default behaviour forks a copy, so the pristine original stays available for diffing.
 
-**What you get back is a marker *layer*, not an annotated picture.** The new entry has `type: "markers"`, its `metadata.markers` array holds the positions, and its `file_path` points at a file whose pixels are still identical to the source. Nothing is drawn into the raster. That is what makes markers relabelable and reusable across versions — and it means an agent cannot produce a ready-to-publish annotated image on its own. Flattening happens on **export from the app**, which is a human step at the Compositor.
+**What you get back is a marker *layer*, not an annotated picture.** The new entry has `type: "markers"`, its `metadata.markers` array holds the positions, and its `file_path` points at a file whose pixels are still identical to the source.
 
-Practical consequence for any workflow that ends in a published image: the agent places the markers and hands over; a person exports. Plan the extra step in rather than discovering it when you paste the path into a README and see an unannotated screenshot.
+**Markers are never rasterised — including on export.** This is the part that surprises people, so it's worth being exact. Beautify's export bakes the *markup* tool stack onto the image; the bake function skips markers by design, and there is no other code path that draws them into a file. So a marker layer's file has the source's pixels today, after an export, and forever.
+
+What markers are for, then:
+
+- **Machine-readable structure.** Coordinates, labels, colours and order, stored as JSON on the entry — an agent writes them and an agent reads them back. Numbering a repro is a *data* operation.
+- **Review inside the app.** Open the entry in Beautify and toggle markers on: the badges appear over the image, draggable and relabelable. That's where a human sees them.
+- **Reuse.** Because nothing is baked, the same layout survives a re-shoot of the underlying screen, and can be saved as a preset.
+
+**To publish an image with visible numbered badges, use the Counter tool** (markup toolbar, shortcut `N`) in the app. It drops an auto-incrementing numbered badge, it's an annotation, and annotations *are* baked on export. It's placed by hand — no MCP tool writes annotations.
+
+The honest division of labour is therefore: the agent decides *where* the numbers belong and puts markers there; if the image is going to be published, a person opens it, reads the markers, and lays counters on the same spots. If the image is only going to be read by an agent, or looked at in the app, the markers are already the finished artifact.
+
+Third option, often the best one for documentation: don't flatten at all — **capture the app** with markers toggled on. `capture_window` on Lazy Shot's own window gives you a real picture of badges over the image, no manual step.
 
 ### `list_marker_presets`
 
@@ -214,6 +226,8 @@ Open the Beautify compositor on a capture.
 | --- | --- | --- | --- |
 | `id` | string | yes | ID or keyword |
 | `edit_existing` | boolean | no | `true` saves back over the original. Default `false` — a beautified copy |
+
+**What "the compositor" is**, since this document leans on the word. It's the **Beautify** window in the app. The capture goes onto a canvas where you set a background, padding, corner radius and shadow, pick an aspect preset (`auto`, `original`, `4:3`, `9:16`, `x-post` or a custom size), crop, and export to PNG, JPEG or WebP. The same window carries the markup toolbar — arrow, line, rectangle, circle, text, pencil, highlighter, blur, spoiler, counter, eraser — and the markers layer with its visibility toggle. Annotations are baked into the export; markers are not.
 
 This one opens UI. It is a hand-off to the human, not a headless render step: the agent stages the image, you finish it.
 

@@ -12,7 +12,7 @@
 
 1. **Evidence before opinion.** Before anyone theorises, capture the actual broken state — `capture_window` on the app the moment it happens.
 2. **Before/after pairs, always.** Convention: `<bug-slug>-before` and `<bug-slug>-after`. A fix without an *after* shot is a claim, not a fix.
-3. **Number the repro, don't narrate it.** `add_markers` places numbered badges on the exact elements — "click ① then ② and watch ③" beats three paragraphs.
+3. **Number the repro, don't narrate it.** `add_markers` pins numbered positions to the exact elements — "click ① then ② and watch ③" beats three paragraphs. Read the gotcha below before you plan on *attaching* that: markers are a data layer, visible in the app but never in an exported file.
 4. **Fork, don't mutate.** Annotation lands on a copy. The pristine original stays diffable against the *after* shot.
 5. **Redact before it leaves the machine.** Tokens, emails, customer data — hit them with **Blur** or **Spoiler** in the app before the image touches Jira, GitHub or Linear. (Light blur on text can be reversed; Spoiler's heavy pixelation can't. This is a human step in the overlay — the agent should *remind* you, not skip it.)
 6. **The library is institutional memory.** When the bug reopens in three months, `search_screenshots "<bug-slug>"` resurrects the whole visual history in seconds. Soft delete means nothing is ever lost.
@@ -31,8 +31,10 @@ When I say "grab the bug <slug>":
    retype it from the image by eye.
 4. Remind me to blur any sensitive data in the app before sharing.
 5. Output an issue-ready block: title suggestion, numbered repro steps
-   matching the markers, verbatim error text, and the annotated copy's
-   file path.
+   matching the markers, verbatim error text, and the path of the
+   original capture to attach. Say plainly that the marker layer is
+   metadata — if I want the numbers visible in the attached image, I
+   place Counter annotations myself.
 
 When I say "close the bug <slug>":
 1. capture_window, keyword "<slug>-after".
@@ -44,8 +46,10 @@ When I say "close the bug <slug>":
 
 ```text
 reproduce ──▶ capture ──▶ keyword "<slug>-before" ──▶ markers on the repro
-                                                            │
-     attach to issue  ◀──  annotated copy's file_path  ◀────┘
+                                │                           │
+                                │             numbered steps ┘
+                                ▼
+                      attach the capture to the issue
 
 fix the code ──▶ capture ──▶ keyword "<slug>-after" ──▶ search "<slug>" ──▶ before/after in the PR
 ```
@@ -63,6 +67,6 @@ An agent transcribing a stack trace from pixels by eye will, sooner or later, si
 ## Gotchas
 
 - Blur and Spoiler are **in-app annotation tools**, not MCP tools — redaction stays a deliberate human act, by design. The agent can remind, stage the image with `show_window`, and stop there.
-- **Markers are a layer, not pixels.** `add_markers` returns an entry whose file has the *same* pixels as the source; the badges live in `metadata.markers`. Attaching that path to a ticket gets you an unannotated screenshot. Flattening is an export from the app — a human step. The agent's job ends at placing the markers and saying so.
+- **Markers are a layer, not pixels — and they never become pixels.** `add_markers` returns an entry whose file has the *same* pixels as the source; the badges live in `metadata.markers`. Attaching that path to a ticket gets you an unannotated screenshot, and exporting from Beautify doesn't change that: the export bakes markup annotations and skips markers by design. So markers are for the agent's own reasoning and for looking at inside the app. If the ticket needs an image with visible ①②③, someone places **Counter** annotations (shortcut `N`) by hand and exports. Budget for that step or skip the badges — `-€NaN` in a before shot rarely needs an arrow pointing at it. ([Details](../../docs/TOOLS.md#add_markers).)
 - Keywords describe content, not time. The on-disk filename pattern already handles chronology.
 - If the bug is in a window you've since left, `capture_tracked_window` is more reliable than asking the user to re-navigate — provided the Activity Tracker is on.

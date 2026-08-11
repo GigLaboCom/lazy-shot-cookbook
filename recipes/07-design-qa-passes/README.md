@@ -19,14 +19,16 @@ Design QA pass "<pass-name>" over these screens: <list>.
 For each screen:
 1. capture_window with the app query and keyword
    "<screen>-review-<pass-name>".
-2. list_marker_presets; add_markers using the "ui-review-5" preset
-   (this forks an annotated copy — reference the copy).
-3. Read the annotated copy. For each numbered point give a verdict:
-   PASS, or a one-line finding.
+2. get_marker_preset "ui-review-5" so you know what each number means and
+   where it sits; add_markers using that preset (this forks a marker
+   layer — its pixels match the original, so don't expect to see badges).
+3. Read the ORIGINAL capture, and use the preset coordinates to locate
+   each numbered point in it. For each point give a verdict: PASS, or a
+   one-line finding.
 Compile the pass into one report:
-| screen | ① | ② | ③ | ④ | ⑤ |  — PASS or the finding, with the annotated
-copy's file_path per row. Findings that are bugs get a suggested "<slug>"
-for recipe-02 treatment.
+| screen | ① | ② | ③ | ④ | ⑤ |  — PASS or the finding, with the capture's
+file_path per row. Findings that are bugs get a suggested "<slug>" for
+recipe-02 treatment.
 ```
 
 ## Copy-paste prompt (findings mode)
@@ -60,7 +62,7 @@ Run it across your locale × theme matrix and the pass becomes a table nobody ha
 - **Consistency:** every screen, every release, the same numbered pass. Review quality stops depending on who reviewed.
 - **Reapplication is free:** next release, the agent reapplies `ui-review-5` to fresh captures. The checklist survives the UI it checks.
 - **Numbers are addresses:** "③ fails on Settings" is a complete, unambiguous finding. Slack threads can't do that.
-- **Nothing is destroyed:** annotated copies for the report, pristine originals for the record, and every past pass stays searchable by its `-review-` keyword.
+- **Nothing is destroyed:** marker layers for the addressing, pristine originals for the record, and every past pass stays searchable by its `-review-` keyword.
 
 ## Fits the other recipes
 
@@ -73,6 +75,7 @@ Findings that are real bugs graduate to [recipe 02](../02-visual-bug-fixing/) �
 ## Gotchas
 
 - Preset **creation** is an in-app act (place markers, save the set). MCP can list, get, search and apply presets, not author them. Deliberate: the checklist is a human decision.
+- **The numbers are addresses, not pictures.** Markers are metadata and are never drawn into a file, including on export — so an agent that applies a preset and then "reads the annotated copy" is looking at an unmarked screenshot. It must get the positions from `get_marker_preset` or `get_screenshot`'s `metadata.markers` and correlate them with the image itself. The prompts above do this; if you write your own, don't skip it. ([Details](../../docs/TOOLS.md#add_markers).)
 - Agent vision is strong on truncation, contrast, inconsistency and missing states; weak on exact pixel measurements. "Spacing looks off at ②" is a flag for a human with a ruler, not a verdict.
 - Preset marker positions are absolute coordinates — they assume a consistent window size across screens, same as [recipe 06](../06-visual-regression-watch/)'s stability rules.
 - OCR truncation detection is a heuristic, not a measurement: it flags candidates worth a human glance, and it will produce false positives on intentionally clipped text.

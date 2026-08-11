@@ -78,10 +78,13 @@ The same metadata makes the agent able to *point*. Each word's box centre is exa
 ```text
 After OCR, place markers on the words I asked about: take each match's
 bounding box, use its centre as the marker x/y, and add_markers with the
-matches numbered in reading order. Give me the annotated copy's path.
+matches numbered in reading order. Give me the marker layer's path and
+tell me which OCR box each coordinate came from.
 ```
 
 "The error mentions three different timeouts — ① ② ③" with badges landing on the actual words, from a tool chain that never guessed a coordinate. This is the payoff of markers and OCR living in the same app.
+
+Two things to be clear about, because this is the recipe where the temptation to over-claim is strongest. First, the badges land in **metadata**, not pixels — markers are never drawn into a file, including on export. Open the layer in the app and toggle markers on and you'll see them sitting exactly on the words; paste the path into a README and you'll see a plain screenshot. Second, that's usually fine here: the value is that the agent knows *where* the phrase is and can say so in coordinates it didn't invent. When you do need the badges in a shipped image, either capture the app with markers visible, or place **Counter** annotations by hand. ([Details](../../docs/TOOLS.md#add_markers).)
 
 ## Worked examples
 

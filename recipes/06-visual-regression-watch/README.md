@@ -37,7 +37,8 @@ Visual check for "<screen>" of <app>:
    moved or resized elements, changed labels, truncation, colour shifts,
    spacing. Ignore rendering noise (font antialiasing, cursor).
 5. add_markers on the candidate numbering each real difference; give me
-   the annotated copy's file_path plus your verdict: intended or regression?
+   the marker layer's file_path, the coordinate of each numbered
+   difference, and your verdict: intended or regression?
 6. If I say "accept": update baselines.txt to the new keyword.
    If I say "regression": this capture is already the "-before" evidence —
    continue per recipe 02.

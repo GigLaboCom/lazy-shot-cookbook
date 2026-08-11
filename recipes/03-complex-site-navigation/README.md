@@ -34,7 +34,8 @@ Protocol for the task "<task-slug>":
 2. Read the image from the returned file_path before deciding the next
    action. Trust the pixels over your assumptions about the DOM.
 3. If the page differs from what you expected, add_markers on the capture
-   flagging the elements that surprised you, and note the copy's path.
+   flagging the elements that surprised you, and note the marker layer's
+   path and the coordinates you used.
 4. On finish or failure, output the full step list: keyword → file_path,
    so I can replay the session visually.
 ```
@@ -44,9 +45,11 @@ Protocol for the task "<task-slug>":
 For a site you automate repeatedly, build a **visual map once**: capture the canonical state of each tricky page, place numbered markers on the zones that matter (nav, filters, the button that only looks like a link), save one preset per page. Then:
 
 ```text
-Before acting on <page>, search_screenshots "<site>-map-<page>" and read
-the annotated copy. The numbered zones are your ground truth for what is
-clickable and where.
+Before acting on <page>, search_screenshots "<site>-map-<page>", read the
+image, and get_marker_preset "<site>-map-<page>" for the numbered zones.
+The image shows you the page; the preset coordinates are your ground
+truth for what is clickable and where. The badges are metadata — they
+will not appear in the image, so read both.
 ```
 
 The agent now starts every run with your knowledge of the site baked into pixels — cheaper and more robust than re-deriving it from the DOM each time.

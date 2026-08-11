@@ -2,7 +2,7 @@
 
 **Output:** `assets/recipes/02-visual-bug-fixing/before-after.png`, 2 panels, 1280 wide, under 1 MB.
 
-The bug with numbered repro markers beside the same screen fixed. The argument: the annotated copy and the pristine original are *different files*, and both survive.
+The broken screen beside the same screen fixed. The argument: a fix without an *after* shot is a claim, and here both halves of the evidence are named files in the same library.
 
 ## Stage
 
@@ -39,9 +39,9 @@ Target the window by **title**. The process name matches any window of that app,
 
 ### On the markers
 
-Recipe 02 places numbered repro markers, and you can do that here — `add_markers` on `checkout-before`, badges on the discount line, the total and the pay button. But know what you get: a **marker layer**, whose file still has the source's pixels. Publishing it needs an export from the Compositor, by hand.
+Recipe 02 places numbered repro markers, and you can do that here — `add_markers` on `checkout-before`, badges on the discount line, the total and the pay button. But know what you get: a **marker layer**, whose file still has the source's pixels, and which stays that way. Markers are never rasterised, in any export.
 
-The shipped asset skips them. `-€NaN` does not need an arrow pointing at it, and the markers earn their place in [A7](./A7-ocr-to-markers.md), where their positions come from OCR boxes and the precision *is* the message. Add them here only if you're willing to do the export.
+The shipped asset skips them, and that's the right call. `-€NaN` does not need an arrow pointing at it. Markers earn their place in [A7](./A7-ocr-to-markers.md), where their positions come from OCR boxes and the precision *is* the message.
 
 ## Expected output after the fix
 
@@ -67,13 +67,12 @@ Both panels into the Compositor side by side, visible gutter, uniform tile size,
 Recipe 02, replacing the `TODO(assets): A4` placeholder:
 
 ```markdown
-![A checkout screen showing a NaN total with three numbered repro markers, beside the same screen after the fix showing €313.20](../../assets/recipes/02-visual-bug-fixing/before-after.png)
+![A checkout screen showing a NaN discount and a NaN total, beside the same screen after the fix showing minus 34.80 and a total of 313.20](../../assets/recipes/02-visual-bug-fixing/before-after.png)
 ```
 
 ## Checklist
 
 - [ ] Shot at `./step.sh 3` — the only difference between panels is the numbers
-- [ ] Markers on the *copy*, original untouched
 - [ ] Both panels the same crop and scale
 - [ ] `NaN` legible at final size — it carries the left panel
 - [ ] `./step.sh reset` afterwards

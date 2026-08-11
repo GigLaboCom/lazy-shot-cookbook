@@ -78,16 +78,16 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Full scenario: [A3-annotated-flow.md](../scenarios/A3-annotated-flow.md)**
 
-**Must contain:** three panels left to right — (1) a raw `capture_window` of a settings dialog, (2) the same shot with numbered markers ①–④ on the elements a doc would describe, (3) a fragment of the generated Markdown with numbered captions matching those markers. A thin caption strip under panels 1 and 2 with their keywords (`settings-step-1`, `settings-step-1-markers`).
+**Must contain:** three panels left to right — (1) a raw `capture_window` of a settings dialog, (2) the same shot open in Lazy Shot with numbered markers ①–④ showing on the elements a doc would describe, (3) a fragment of the generated Markdown with numbered captions matching those markers. A thin caption strip under panels 1 and 2 with their keywords (`settings-step-1`, `settings-step-1-markers`).
 
-**Produce:** run the recipe 01 prompt on Lazy Shot's own Settings dialog. Panel 3 is a screenshot of the agent's Markdown output. Arrange all three in the Compositor.
+**Produce:** run the recipe 01 prompt on Lazy Shot's own Settings dialog. Panel 3 is a screenshot of the agent's Markdown output. **Panel 2 is a capture of the app with markers toggled on**, cropped to the canvas — markers are metadata and never appear in the layer's own file ([why](./TOOLS.md#add_markers)). Arrange all three in the Compositor.
 
-**The point it must make:** the annotated copy is a *separate file* from the original. Both panels visible side by side is the argument.
+**The point it must make:** the marker layer is a *separate file* from the original. Both panels visible side by side, with both keywords legible, is the argument.
 
 **Embed** — recipe 01:
 
 ```markdown
-![A settings dialog captured, the same capture with numbered markers, and the generated Markdown whose captions match the marker numbers](../../assets/recipes/01-self-documenting-ui/annotated-flow.png)
+![A settings dialog captured, the same capture open in Lazy Shot with numbered markers, and the generated Markdown whose captions match the marker numbers](../../assets/recipes/01-self-documenting-ui/annotated-flow.png)
 ```
 
 ---
@@ -96,16 +96,16 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Full scenario: [A4-before-after.md](../scenarios/A4-before-after.md)**
 
-**Must contain:** two panels — left, the broken state with numbered repro markers ①②③ on the elements involved; right, the fixed state, clean. Labels burned in: `checkout-before` / `checkout-after`. Use a real bug you actually fixed.
+**Must contain:** two panels — left, the broken state; right, the fixed state. Same crop, same scale, only the numbers differ. Labels burned in: `checkout-before` / `checkout-after`. Use a real bug you actually fixed.
 
-**Produce:** both panels are Lazy Shot captures, markers via `add_markers`, arranged as a diptych in the Compositor with a visible gutter.
+**Produce:** both panels are Lazy Shot captures, arranged as a diptych in the Compositor with a visible gutter. No markers — `-€NaN` doesn't need an arrow, and markers wouldn't survive into the file anyway ([why](./TOOLS.md#add_markers)).
 
 **Watch for:** this is the asset most likely to leak something — no order numbers, emails, or customer names. Spoiler (not Blur) anything borderline.
 
 **Embed** — recipe 02:
 
 ```markdown
-![A broken checkout screen with three numbered repro markers beside the same screen after the fix](../../assets/recipes/02-visual-bug-fixing/before-after.png)
+![A checkout screen showing a NaN discount and a NaN total, beside the same screen after the fix showing minus 34.80 and a total of 313.20](../../assets/recipes/02-visual-bug-fixing/before-after.png)
 ```
 
 ---
@@ -150,16 +150,16 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 The most technically interesting asset in the set — nothing else on the market does this.
 
-**Must contain:** three panels — (1) an unselectable error dialog, captured; (2) the `ocr_screenshot` output as verbatim text, with one low-confidence word visibly flagged; (3) the same capture with markers ①②③ landing precisely on the words the agent was asked about, placed from OCR bounding boxes rather than by eye.
+**Must contain:** three panels — (1) an unselectable error dialog, captured; (2) the `ocr_screenshot` output as verbatim text, with one low-confidence word visibly flagged; (3) the marker layer open in Lazy Shot, markers toggled on, ①②③ landing precisely on the words the agent was asked about — placed from OCR bounding boxes rather than by eye.
 
-**Produce:** capture a real error dialog, call `ocr_screenshot` with `format: "metadata"`, take the word boxes, feed the centres to `add_markers`. Panel 2 is a screenshot of the tool output. Compositor for the layout.
+**Produce:** capture a real error dialog, call `ocr_screenshot` with `format: "metadata"`, take the word boxes, feed the centres to `add_markers`. Panel 2 is a screenshot of the tool output. **Panel 3 must be a capture of the app** — markers are metadata and never appear in the layer's own file, so composing panel 3 from that file yields a blank panel ([why](./TOOLS.md#add_markers)). Compositor for the layout.
 
 **The point it must make:** the markers are *derived from* the OCR boxes. Consider a hairline connecting a word in panel 2 to its marker in panel 3 — that single line is the whole idea.
 
 **Embed** — recipe 05:
 
 ```markdown
-![An error dialog, its OCR transcript with a low-confidence word flagged, and the same capture with markers positioned from the OCR bounding boxes](../../assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png)
+![An error dialog, its OCR transcript with a low-confidence word flagged, and the same capture open in Lazy Shot with markers positioned from the OCR bounding boxes](../../assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png)
 ```
 
 ---

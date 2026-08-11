@@ -33,7 +33,11 @@ Run these in order. Each row: set the state, paste the prompt, get one capture.
 
 **Match the window by title, never by process name or stack position.** `capture_window "Google Chrome"` matches *a* Chrome window, and with several open that is a coin flip — during this shoot it grabbed a personal inbox. `capture_tracked_window` with `stack_position: 1` is no better: position 1 is whatever was focused last, and running `./step.sh` between frames hands focus to the terminal. Title is the only selector that holds still.
 
-Get the exact title from `list_tracked_windows` before frame 01. If two windows share it, close one — there is no way to disambiguate them.
+Get the exact title from `list_tracked_windows` before frame 01.
+
+**Duplicate titles in that list are usually not a problem.** `list_tracked_windows` returns *activity history*, not live windows — a window you closed hours ago still has a row. Title matching (`capture.rs`) does a `.find()` over the stack in most-recent-first order, so it resolves to the freshest entry, which is the live one. Check `last_seen` before you go closing windows: during this shoot the list showed two "Northwind Analytics" rows three hours apart, while Chrome actually had one such window open.
+
+It only genuinely bites when **two live windows** share a title. Then there is no way to disambiguate, and you do have to close one.
 
 Optionally compose a fifth frame in the Compositor: `hero-before` and `hero-after` side by side, the pair that ends up in a PR. Composed, not captured.
 

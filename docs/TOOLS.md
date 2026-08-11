@@ -90,6 +90,10 @@ No parameters. Returns every connected display with its geometry. Prerequisite f
 
 Recently active windows, most recent first. Requires the **windowTracker** feature flag.
 
+Each entry carries `title`, `process_name`, `stack_position` and `last_seen` (epoch ms).
+
+**It is an activity log, not a live window list.** Windows that have since been closed keep their row, so the same title can appear more than once — typically one live window plus one or more ghosts. Read `last_seen` before concluding you have a title collision. `capture_tracked_window` matched by `title` does a first-match scan down the same most-recent-first order, so it lands on the freshest entry and the ghosts never win. A real collision is two entries with the same title *and* comparable `last_seen`; that one you have to resolve by closing a window.
+
 ## Manage (8)
 
 ### `list_screenshots`

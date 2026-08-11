@@ -32,7 +32,7 @@ function pricing() {
 function checkout() {
   const subtotal = 348.0;
   const discount = '10%';
-  const reduction = subtotal * discount; // NaN
+  const reduction = subtotal * (Number.parseFloat(discount) / 100);
   const total = subtotal - reduction;
 
   return `

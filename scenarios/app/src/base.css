@@ -1,0 +1,177 @@
+/* Baseline styling — deliberately broken in three places for scenario A2.
+   Each defect is marked. Do not fix them here: fixing them on camera IS the
+   asset. The target values are in scenarios/A2-iteration-series.md. */
+
+:root {
+  --ink: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #8b1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#nav {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0 28px;
+  font-size: 14px;
+}
+
+#nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+#nav a:hover {
+  color: var(--accent);
+}
+
+.card {
+  /* DEFECT 1 (iteration 1): too narrow, and no padding — the heading spills
+     past the border and the text touches the edge. */
+  width: 260px;
+  padding: 0;
+
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.card h2 {
+  /* DEFECT 1 continued: oversized and unwrappable, so it overflows the card. */
+  font-size: 30px;
+  white-space: nowrap;
+  margin: 0 0 12px;
+}
+
+.price {
+  /* DEFECT 2 (iteration 2): the period drops onto its own line instead of
+     sitting on the amount's baseline. */
+  margin: 0 0 16px;
+}
+
+.price .amount {
+  display: block;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.price .period {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.features {
+  list-style: none;
+  padding-left: 22px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.cta {
+  /* DEFECT 3 (iteration 3): fixed narrow width, hugging the left edge. */
+  width: 140px;
+  margin: 0;
+
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ── Checkout (scenario A4) ─────────────────────────────────────────── */
+
+.lines {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.lines dt {
+  color: var(--muted);
+}
+
+.lines dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.total-label,
+.total {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ── Error dialog (scenario A7) ─────────────────────────────────────── */
+
+.error-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(17 24 39 / 45%);
+  display: grid;
+  place-items: center;
+}
+
+.error-dialog {
+  width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+
+  /* Intentional: this is the "text you cannot select" of recipe 05. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.error-dialog h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+
+.error-body {
+  margin: 0 0 20px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ── Settings (scenario A3) ─────────────────────────────────────────── */
+
+.settings .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.settings input[type='text'],
+.settings input:not([type]),
+.settings select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 14px;
+}

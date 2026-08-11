@@ -1,0 +1,22 @@
+/* Iteration 2 — the price baseline.
+   Puts the amount and the billing period on one baseline instead of stacking
+   them. */
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0 0 16px;
+}
+
+.price .amount {
+  display: inline;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.price .period {
+  display: inline;
+  color: var(--muted);
+  font-size: 14px;
+}

@@ -1,0 +1,11 @@
+/* Iteration 3 — the feature list and the call to action.
+   Aligns the list with the heading and makes the button full width. */
+
+.features {
+  padding-left: 0;
+}
+
+.cta {
+  width: 100%;
+  margin-top: 20px;
+}

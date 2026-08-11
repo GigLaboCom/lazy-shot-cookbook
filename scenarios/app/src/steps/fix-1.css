@@ -1,0 +1,15 @@
+/* Iteration 1 — the card and its heading.
+   Widens the card, restores padding, and lets the heading wrap so it stops
+   spilling past the border. */
+
+.card {
+  width: 320px;
+  padding: 24px;
+}
+
+.card h2 {
+  font-size: 20px;
+  line-height: 1.3;
+  white-space: normal;
+  margin: 0 0 12px;
+}

@@ -155,7 +155,7 @@ Honesty section, because you'd find out anyway:
 - **It doesn't click.** Lazy Shot is eyes, not hands. For navigation, pair it with Playwright MCP, a browser extension, or any computer-use tool — see [recipe 03](./recipes/03-complex-site-navigation/).
 - **No scrolling capture**, no video or GIF recording. If that's your core need, CleanShot X (Mac) and Snagit are genuinely good at it.
 - **It never watches the screen.** There is no "observe until something changes" mode. Someone — you or the agent — decides each shot. That is a design position, not a gap.
-- **File-path-first means local-first.** The server binds to `127.0.0.1` and returns paths on *this* machine. Built for local agents (Claude Code, Claude Desktop, Cursor, self-hosted n8n), not remote SaaS runners.
+- **File-path-first means local-first.** The server binds to `127.0.0.1` by default and returns paths on *this* machine. Built for local agents (Claude Code, Claude Desktop, Cursor, self-hosted n8n), not remote SaaS runners. The bind address is a setting; `get_app_status` reports it as `mcp_bind`, and if yours says `0.0.0.0` read [SECURITY.md](./SECURITY.md) before you keep working.
 - **An agent can't produce a burned-in annotated image.** It places markers, which are metadata — visible in the app, never in a file. Arrows, boxes, blur and numbered counters are baked, but they're placed by hand in the app. Drawing on a screenshot stays a human act, on purpose.
 
 ## Get Lazy Shot

@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.webp binary
+*.mp4 binary
+*.svg text
+
+# Keep generated/vendored assets out of language stats.
+assets/** linguist-documentation

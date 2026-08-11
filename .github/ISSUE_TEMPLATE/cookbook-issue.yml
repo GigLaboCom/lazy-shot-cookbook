@@ -1,0 +1,44 @@
+name: Cookbook problem
+description: Something in this repo is wrong, stale, or doesn't work as written
+title: "[Cookbook] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For bugs in the **app itself**, use the product support link instead — this
+        repo is documentation only.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: File or recipe, ideally with a line link.
+      placeholder: recipes/05-copy-the-uncopyable/README.md, "Two blades" table
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What's wrong
+      description: What the page says, and what actually happens.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Lazy Shot version
+      description: From Settings, or the `version` field of `get_app_status`.
+      placeholder: "0.0.8"
+    validations:
+      required: false
+
+  - type: input
+    id: client
+    attributes:
+      label: MCP client
+      placeholder: Claude Code 2.x / Claude Desktop / Cursor
+    validations:
+      required: false

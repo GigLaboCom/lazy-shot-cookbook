@@ -1,0 +1,7 @@
+# Local-only endpoints referenced throughout the cookbook by design.
+^http://localhost
+^http://127\.0\.0\.1
+^https://localhost
+
+# Placeholder links inside copy-paste templates.
+^https?://<

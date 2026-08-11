@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Heretic Lazy Shot — product support
+    url: https://giglabo.com/heretic/applications/heretic-lazy-shot
+    about: Bugs in the app itself, licensing, or installation. This repo is only the cookbook.
+  - name: Security report
+    url: https://github.com/GigLaboCom/lazy-shot-cookbook/security/advisories/new
+    about: Report a vulnerability privately. Never in a public issue.

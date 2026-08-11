@@ -1,0 +1,84 @@
+name: Recipe proposal
+description: Propose a new agent workflow for the cookbook
+title: "[Recipe] "
+labels: ["recipe-proposal", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Recipes must be workflows you actually run. Half-formed ideas are welcome too —
+        just say so below and we'll work it out in the thread.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem it solves
+      description: One paragraph. What is painful today?
+      placeholder: Every release breaks the screenshots in our docs and nobody re-captures 40 images by hand.
+    validations:
+      required: true
+
+  - type: textarea
+    id: loop
+    attributes:
+      label: The loop
+      description: Which MCP tools, in what order. Real tool names only — see docs/TOOLS.md.
+      placeholder: |
+        capture_window (keyword) → ocr_screenshot → add_markers → search_screenshots
+    validations:
+      required: true
+
+  - type: dropdown
+    id: client
+    attributes:
+      label: Client / stack
+      multiple: true
+      options:
+        - Claude Code
+        - Claude Desktop
+        - Cursor
+        - VS Code
+        - n8n
+        - Other agent framework
+        - Plain scripts / cron
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform you run it on
+      multiple: true
+      options:
+        - macOS
+        - Windows
+    validations:
+      required: true
+
+  - type: dropdown
+    id: real
+    attributes:
+      label: Do you run this yourself?
+      description: Recipes must be real workflows. "Not yet" is an honest answer and still useful.
+      options:
+        - "Yes, regularly"
+        - "Yes, once or twice"
+        - "Not yet — this is an idea"
+    validations:
+      required: true
+
+  - type: textarea
+    id: gotchas
+    attributes:
+      label: Gotchas
+      description: What breaks, what's slow, what needs an experimental flag. Every recipe ships with at least two.
+    validations:
+      required: true
+
+  - type: textarea
+    id: missing
+    attributes:
+      label: Anything Lazy Shot can't do that this workflow needs?
+      description: That part becomes a feature request — tell us anyway.
+    validations:
+      required: false

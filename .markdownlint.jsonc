@@ -1,0 +1,12 @@
+{
+  // Prose-oriented ruleset: strict about structure, relaxed about line length
+  // and inline HTML, both of which the recipes use deliberately.
+  "default": true,
+  "MD013": false, // line-length — recipes wrap by sentence, not by column
+  "MD033": false, // inline HTML — README header and TODO comments need it
+  "MD024": { "siblings_only": true }, // repeated "Gotchas" headings across files are fine
+  "MD036": false, // bold lead-ins before a list are labels, not headings
+  "MD029": { "style": "ordered" },
+  "MD041": false, // first line is an HTML block in README
+  "MD046": { "style": "fenced" }
+}

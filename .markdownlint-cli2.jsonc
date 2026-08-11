@@ -1,0 +1,6 @@
+{
+  // Rule configuration lives in .markdownlint.jsonc; this file only tells
+  // markdownlint-cli2 what to look at.
+  "globs": ["**/*.md"],
+  "ignores": ["**/node_modules/**", "scenarios/app/node_modules/**"]
+}

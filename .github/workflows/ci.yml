@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  markdown:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Globs and ignores come from .markdownlint-cli2.jsonc,
+      # rule configuration from .markdownlint.jsonc.
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+
+  agent-rules:
+    name: AGENTS.md in sync with CLAUDE.md
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/sync-agent-rules.sh --check
+
+  examples:
+    name: Example configs are valid JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse every example JSON file
+        run: |
+          set -euo pipefail
+          found=0
+          while IFS= read -r -d '' f; do
+            echo "checking $f"
+            python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"
+            found=$((found + 1))
+          done < <(find examples -name '*.json' -print0)
+          if [ "$found" -eq 0 ]; then
+            echo "no example JSON files found — did the examples directory move?" >&2
+            exit 1
+          fi
+          echo "$found example config(s) parsed"
+
+  shell:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: shellcheck scripts/*.sh
+
+  links:
+    name: Link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-concurrency 4 './**/*.md'
+          fail: true

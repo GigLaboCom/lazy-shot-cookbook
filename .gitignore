@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Tooling
+node_modules/
+.lycheecache
+
+# Local scratch — captures land here while drafting recipes, never commit raw ones
+scratch/
+*.local.md

@@ -23,6 +23,7 @@ note which app version a change was verified against.
 - Tool count corrected from 18 to **23**: the OCR group (`ocr_screenshot`, `ocr_image_path`, `list_ocr_languages`) plus `show_window` and `edit_screenshot` were added to the app after the first draft of these recipes.
 - "Copy the uncopyable" promoted from proposed to shipped and rewritten around the real OCR tools; recipes renumbered accordingly (visual regression 05 → 06).
 - Product links point at `giglabo.com/heretic/applications/heretic-lazy-shot`; repository links at `GigLaboCom/lazy-shot-cookbook`.
+- **MCP server name is `lazy-shot`, not `heretic-lazy-shot`.** The app's own Settings → MCP tab hands out connection snippets naming the server `lazy-shot`, on all four client tabs. The cookbook said `heretic-lazy-shot` everywhere, so a reader who pasted the app's snippet and then followed these docs would not find their own server. The name is arbitrary and both work; the docs are what had to move, because the app is what people copy from. Paths (`~/.heretic-lazy-shot/`), the product name and the source-repo name are unchanged.
 
 ### Fixed
 

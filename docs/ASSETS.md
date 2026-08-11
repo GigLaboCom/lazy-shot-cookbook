@@ -188,7 +188,7 @@ The most technically interesting asset in the set — nothing else on the market
 
 The trust asset: proof the thing connects in one command.
 
-**Must contain:** terminal output of `/mcp` in Claude Code showing `heretic-lazy-shot` connected, with the tool count and the two prompts visible. Real terminal, real output.
+**Must contain:** terminal output of `/mcp` in Claude Code showing `lazy-shot` connected, with the tool count and the two prompts visible. Real terminal, real output.
 
 **Produce:** screenshot the terminal with `capture_window`, crop to the relevant block.
 
@@ -197,7 +197,7 @@ The trust asset: proof the thing connects in one command.
 **Embed** — SETUP.md, Claude Code section:
 
 ```markdown
-![Claude Code's /mcp output showing the heretic-lazy-shot server connected with its tools and prompts](../assets/setup/claude-code-connected.png)
+![Claude Code's /mcp output showing the lazy-shot server connected with its tools and prompts](../assets/setup/claude-code-connected.png)
 ```
 
 ---
@@ -244,7 +244,7 @@ For the X thread, the product page, and the Show HN post. Silent, captioned, loo
 | Time | Beat | On screen |
 | --- | --- | --- |
 | 0–5 s | **The problem** | An agent in the terminal says a UI change is done. The app window beside it visibly disagrees. Caption: *"Agents ship UI changes blind."* |
-| 5–12 s | **The setup** | The Settings → MCP toggle, then one line in the terminal: `claude mcp add --transport http heretic-lazy-shot http://localhost:5055/mcp`, then `/mcp` listing the tools. Caption: *"One command. 23 tools."* |
+| 5–12 s | **The setup** | The Settings → MCP toggle, then one line in the terminal: `claude mcp add --transport http lazy-shot http://localhost:5055/mcp`, then `/mcp` listing the tools. Caption: *"One command. 23 tools."* |
 | 12–30 s | **The loop** | The A2 scenario, uncut: edit → repaint → capture → the agent reads the image and says what's still wrong → repeat → done. Caption: *"Now it looks before it says done."* |
 | 30–40 s | **The library** | Cut to the library: the `-before`, `-iter-N`, `-after` series with keywords readable. Then `search_screenshots` recalling it by name. Caption: *"Every step, named and searchable."* |
 | 40–45 s | **The close** | The cookbook README on screen, repo URL and the one-time price visible. Caption: *"Give your agent eyes."* |

@@ -28,7 +28,7 @@ Then trim to the panel in the Compositor — no desktop, no other windows, no tr
 
 **Output:** 900 wide, under 300 KB.
 
-The trust asset: `/mcp` in Claude Code showing `heretic-lazy-shot` connected, with the tool count and both prompts visible.
+The trust asset: `/mcp` in Claude Code showing `lazy-shot` connected, with the tool count and both prompts visible.
 
 **Before shooting:** use a scratch project, not a client one. Check the shell prompt, the window title, and the list of other MCP servers — all three leak. A path like `~/work/acme-migration` in the prompt is exactly the thing that gets noticed.
 
@@ -41,7 +41,7 @@ Crop to the `/mcp` output block. If the tool list is long, crop to the header li
 **Embed** — `docs/SETUP.md`, Claude Code section:
 
 ```markdown
-![Claude Code's /mcp output showing the heretic-lazy-shot server connected with its tools and prompts](../assets/setup/claude-code-connected.png)
+![Claude Code's /mcp output showing the lazy-shot server connected with its tools and prompts](../assets/setup/claude-code-connected.png)
 ```
 
 ## Checklist for both

@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "heretic-lazy-shot": {
+    "lazy-shot": {
       "url": "http://localhost:5055/mcp"
     }
   }

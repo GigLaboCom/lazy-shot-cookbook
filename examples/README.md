@@ -15,7 +15,7 @@ Copy-paste-ready configs for connecting an MCP client to Heretic Lazy Shot. All 
 Claude Code users can skip the file entirely:
 
 ```bash
-claude mcp add --transport http heretic-lazy-shot http://localhost:5055/mcp
+claude mcp add --transport http lazy-shot http://localhost:5055/mcp
 ```
 
 Whichever client you use, also drop the agent rules into your project — [`CLAUDE.md`](../CLAUDE.md) for Claude, [`AGENTS.md`](../AGENTS.md) for everything else, `cursor/lazy-shot.mdc` for Cursor. Without them the agent will invent its own keyword conventions and screenshot its own terminal at least once.

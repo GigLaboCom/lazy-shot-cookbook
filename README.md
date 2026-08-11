@@ -46,7 +46,7 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
    **Claude Code**
 
    ```bash
-   claude mcp add --transport http heretic-lazy-shot http://localhost:5055/mcp
+   claude mcp add --transport http lazy-shot http://localhost:5055/mcp
    ```
 
    **Claude Desktop** — `claude_desktop_config.json` ([full example](./examples/claude-desktop/claude_desktop_config.json)):
@@ -54,7 +54,7 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
    ```json
    {
      "mcpServers": {
-       "heretic-lazy-shot": { "url": "http://localhost:5055/mcp" }
+       "lazy-shot": { "url": "http://localhost:5055/mcp" }
      }
    }
    ```

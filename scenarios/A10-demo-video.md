@@ -16,7 +16,7 @@ For the X thread, the product page, and the Show HN post. Silent, captioned, loo
 | Time | Beat | On screen | Caption |
 | --- | --- | --- | --- |
 | 0–5 s | The problem | The agent's message claiming the layout is fixed, next to the broken pricing card. Hold long enough to read both | *Agents ship UI changes blind.* |
-| 5–12 s | The setup | Settings → MCP toggle. Then one line typed: `claude mcp add --transport http heretic-lazy-shot http://localhost:5055/mcp`. Then `/mcp` listing the tools | *One command. 23 tools.* |
+| 5–12 s | The setup | Settings → MCP toggle. Then one line typed: `claude mcp add --transport http lazy-shot http://localhost:5055/mcp`. Then `/mcp` listing the tools | *One command. 23 tools.* |
 | 12–30 s | The loop | The [A2](./A2-iteration-series.md) session uncut: edit → repaint → capture → the agent reads the image and names what's still wrong → repeat → done | *Now it looks before it says done.* |
 | 30–40 s | The library | The library showing `hero-before`, `hero-iter-1..3`, `hero-after` with keywords readable. Then `search_screenshots "hero"` recalling the set by name | *Every step, named and searchable.* |
 | 40–45 s | The close | The cookbook README on screen: repo URL, and the one-time price | *Give your agent eyes.* |

@@ -30,7 +30,7 @@ Activation is one-time and offline (Ed25519-signed PASETO tokens); there's no pe
 ## Claude Code
 
 ```bash
-claude mcp add --transport http heretic-lazy-shot http://localhost:5055/mcp
+claude mcp add --transport http lazy-shot http://localhost:5055/mcp
 ```
 
 Verify with `/mcp` inside a session — you should see the server connected, its 23 tools, and the two prompts.
@@ -49,7 +49,7 @@ Edit `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "heretic-lazy-shot": { "url": "http://localhost:5055/mcp" }
+    "lazy-shot": { "url": "http://localhost:5055/mcp" }
   }
 }
 ```
@@ -63,7 +63,7 @@ Project-scoped `.cursor/mcp.json` (or the global `~/.cursor/mcp.json`):
 ```json
 {
   "mcpServers": {
-    "heretic-lazy-shot": { "url": "http://localhost:5055/mcp" }
+    "lazy-shot": { "url": "http://localhost:5055/mcp" }
   }
 }
 ```
@@ -77,7 +77,7 @@ Cursor reads rules from `.cursor/rules/*.mdc` rather than `CLAUDE.md` — a read
 ```json
 {
   "servers": {
-    "heretic-lazy-shot": { "type": "http", "url": "http://localhost:5055/mcp" }
+    "lazy-shot": { "type": "http", "url": "http://localhost:5055/mcp" }
   }
 }
 ```

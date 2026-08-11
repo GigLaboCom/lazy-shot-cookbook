@@ -39,9 +39,13 @@ Activation is one-time and offline (Ed25519-signed PASETO tokens); there's no pe
 claude mcp add --transport http lazy-shot http://localhost:5055/mcp
 ```
 
-Verify with `/mcp` inside a session — you should see the server connected, its 23 tools, and the two prompts.
+Verify with `/mcp` inside a session — you should see the server connected and its 23 tools:
 
-To share the connection with a team or across machines, commit a project-scoped [`.mcp.json`](../examples/claude-code/.mcp.json) instead of adding it per user.
+![Claude Code's /mcp panel listing lazy-shot as a project MCP server, connected, with 23 tools](../assets/setup/claude-code-connected.png)
+
+If the count says something other than 23, the app has shipped tools these docs haven't caught up with — [open an issue](https://github.com/GigLaboCom/lazy-shot-cookbook/issues/new) and we'll fix the reference.
+
+To share the connection with a team or across machines, commit a project-scoped [`.mcp.json`](../examples/claude-code/.mcp.json) instead of adding it per user — that's what produced the listing above, and it's why the server appears under **Project MCPs** with the path it came from.
 
 Then drop [`CLAUDE.md`](../CLAUDE.md) into your project root so the agent starts with the house rules rather than inventing its own conventions.
 

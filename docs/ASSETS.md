@@ -188,11 +188,13 @@ The most technically interesting asset in the set — nothing else on the market
 
 The trust asset: proof the thing connects in one command.
 
-**Must contain:** terminal output of `/mcp` in Claude Code showing `lazy-shot` connected, with the tool count and the two prompts visible. Real terminal, real output.
+**Must contain:** terminal output of `/mcp` in Claude Code showing `lazy-shot` connected with its tool count. Real terminal, real output.
 
-**Produce:** screenshot the terminal with `capture_window`, crop to the relevant block.
+This spec used to ask for "the two prompts" as well. Claude Code's `/mcp` list doesn't show prompts — it prints one line per server with status and tool count, and that's it. Corrected against the real panel.
 
-**Watch for:** other MCP servers in that list, project paths, and anything in the shell prompt you'd rather not publish.
+**Produce:** ✅ **done** — `capture_window` on the terminal, cropped to the **Project MCPs** block at native scale. Full recipe, including the throwaway project that keeps your own servers and paths out of frame, in the [scenario](../scenarios/A8-A9-setup-shots.md).
+
+**Watch for:** other MCP servers in that list, project paths, and anything in the shell prompt you'd rather not publish. Account-level connections (Gmail, Drive, Calendar) show up here too — cropping to the project block removes all of them at once.
 
 **Embed** — SETUP.md, Claude Code section:
 

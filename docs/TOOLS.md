@@ -92,7 +92,13 @@ Recently active windows, most recent first. Requires the **windowTracker** featu
 
 Each entry carries `title`, `process_name`, `stack_position` and `last_seen` (epoch ms).
 
-**It is an activity log, not a live window list.** Windows that have since been closed keep their row, so the same title can appear more than once — typically one live window plus one or more ghosts. Read `last_seen` before concluding you have a title collision. `capture_tracked_window` matched by `title` does a first-match scan down the same most-recent-first order, so it lands on the freshest entry and the ghosts never win. A real collision is two entries with the same title *and* comparable `last_seen`; that one you have to resolve by closing a window.
+**It is an activity log, not a live window list.** It errs in both directions, and each one bites differently.
+
+*Too many rows:* windows that have since been closed keep theirs, so the same title can appear more than once — typically one live window plus one or more ghosts. Read `last_seen` before concluding you have a title collision. `capture_tracked_window` matched by `title` does a first-match scan down the same most-recent-first order, so it lands on the freshest entry and the ghosts never win. A real collision is two entries with the same title *and* comparable `last_seen`; that one you have to resolve by closing a window.
+
+*Too few rows:* the log is written on focus events, so **a window that has never been focused since it was created is not in it at all** — a terminal you opened in the background, a window on another Space. It is still a real window, and `capture_window` will find it, because that tool matches against the OS window list rather than this history. If `capture_tracked_window` says "no window matching X" and you can see the window, that is the difference talking; switch tools rather than clicking around to make it appear.
+
+**Tabs are invisible here.** The tracker works at window granularity, so a second tab in the same terminal or browser window produces no row — it only changes the existing row's `title` while it is the frontmost tab. Anything you want to capture by name has to be its own window.
 
 ## Manage (8)
 

@@ -108,6 +108,26 @@ ffprobe -v error -count_frames -select_streams v:0 \
 
 1350 at 30 fps. `+faststart` matters — without it the video will not start playing until fully downloaded, which in a feed means it does not play.
 
+## Where it plays
+
+A video committed to a GitHub repository cannot be played from that repository. Three separate behaviours combine into a dead end, and it is worth knowing all three before trying to work around one of them:
+
+| Attempt | What GitHub does |
+| --- | --- |
+| `<video src="…">` in Markdown | strips the tag; the paragraph renders empty |
+| `![](demo.mp4)` | renders a plain link |
+| Opening the raw file | serves `application/octet-stream`, so the browser downloads it |
+
+The README therefore points the poster at **jsDelivr**, which serves the same bytes out of this repository as `video/mp4` with range requests, so it plays and seeks in the browser:
+
+```text
+https://cdn.jsdelivr.net/gh/GigLaboCom/lazy-shot-cookbook@main/assets/demo/lazy-shot-cookbook-demo.mp4
+```
+
+Two consequences of the `@main` reference. It always follows the branch, so a rebuilt video needs no edit — but jsDelivr caches it for 12 hours at the edge and seven days in a visitor's browser, so a fix is not visible immediately. Pin `@<tag>` instead if you ever need a version to be immutable.
+
+**For an inline player** — controls in the README itself rather than a click-through — the only mechanism is a GitHub *attachment*: drag the file into a comment box, and the `github.com/user-attachments/assets/…` URL it produces renders as a player. That is a separate copy of the file, uploaded by hand, and it does not update when the video is rebuilt. If the README ever uses one, re-upload it as part of re-shooting.
+
 ## Checklist
 
 - [x] Works muted, start to finish

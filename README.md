@@ -29,9 +29,11 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
 
 *An agent fixing a layout, one defect per iteration — and looking at the result before claiming it's done. Every frame is a real capture, named `hero-before` through `hero-after`. → [recipe 00](./recipes/00-see-what-you-shipped/)*
 
-[![The broken pricing card that opens the demo, captioned "Agents ship UI changes blind."](./assets/demo/demo-poster.png)](./assets/demo/lazy-shot-cookbook-demo.mp4)
+[![The broken pricing card that opens the demo, captioned "Agents ship UI changes blind."](./assets/demo/demo-poster.png)](https://cdn.jsdelivr.net/gh/GigLaboCom/lazy-shot-cookbook@main/assets/demo/lazy-shot-cookbook-demo.mp4)
 
-*[**The 45-second demo**](./assets/demo/lazy-shot-cookbook-demo.mp4) — connecting the server, the loop above running live, and the named library it leaves behind. Silent and captioned; nothing in it depends on sound. GitHub does not play video committed to a repository, so that link **downloads** the file (2.4 MB); the still above is its opening frame. Shot with the [A10 scenario](./scenarios/A10-demo-video.md).*
+*[**The 45-second demo**](https://cdn.jsdelivr.net/gh/GigLaboCom/lazy-shot-cookbook@main/assets/demo/lazy-shot-cookbook-demo.mp4) — connecting the server, the loop above running live, and the named library it leaves behind. Silent and captioned; nothing in it depends on sound. Shot with the [A10 scenario](./scenarios/A10-demo-video.md). The still above is its opening frame.*
+
+<sub>That link plays in the browser. It has to go through a CDN rather than straight to the file: GitHub serves a committed `.mp4` as `application/octet-stream`, which downloads instead of playing, and strips `<video>` out of Markdown — so a repository cannot embed its own video. jsDelivr serves the same bytes from this repository as `video/mp4`. The file itself is [`assets/demo/lazy-shot-cookbook-demo.mp4`](./assets/demo/lazy-shot-cookbook-demo.mp4) — that link downloads it, 2.4 MB.</sub>
 
 **Why agents need this**
 

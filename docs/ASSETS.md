@@ -30,7 +30,7 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 | A3 | `assets/recipes/01-self-documenting-ui/annotated-flow.png` | Filmstrip | ✅ 1280×473, 100 KB | Recipe 01 |
 | A4 | `assets/recipes/02-visual-bug-fixing/before-after.png` | Diptych | ✅ 1276×390, 48 KB | Recipe 02 |
 | A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | ✅ 1280×650, 483 KB, 9.3 s | Recipe 03 |
-| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ✅ 1280×774, 168 KB | Recipe 04 |
+| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ✅ 1280×632, 136 KB | Recipe 04 |
 | A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | ✅ 1280×781, 184 KB | Recipe 05 |
 | A8 | `assets/setup/settings-mcp.png` | Still | ✅ 1280×500, 72 KB | README setup + SETUP.md |
 | A9 | `assets/setup/claude-code-connected.png` | Still | ✅ 890×184, 20 KB | SETUP.md |
@@ -140,7 +140,7 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Must contain:** a contact sheet of one real release sweep — different windows captured in a single agent run, each tile captioned with its keyword (`v1-settings`, `v1-checkout`, …). Uniform tile size, small gutters, letterboxed rather than cropped to fill.
 
-**Produce:** ✅ **done** — shot 2026-08-12, 1280 × 774, six tiles at 401 px. Run the recipe 04 prompt, then lay the captures out on a grid. **3 × 2, not 4 × 3:** at twelve tiles the defect that justifies the whole sweep is 298 px wide and unreadable; at six it reads.
+**Produce:** ✅ **done** — shot 2026-08-12, 1280 × 632, six tiles at 401 px, each cropped to the page so no bookmarks bar reaches the sheet. Run the recipe 04 prompt, then lay the captures out on a grid. **3 × 2, not 4 × 3:** at twelve tiles the defect that justifies the whole sweep is 298 px wide and unreadable; at six it reads.
 
 **The point it must make:** volume and naming — plus one tile that is visibly wrong. Here `v1-checkout` renders every total as `€NaN`, from the demo app's real bug, so the sheet says "we swept the release and found something" rather than "we took six screenshots". Don't crop the captions.
 

@@ -1,6 +1,6 @@
 # A6 — the release sweep contact sheet
 
-**Output:** ✅ **shot** — `assets/recipes/04-release-day-batch-capture/sweep-grid.png`, 1280 × 774, 168 KB.
+**Output:** ✅ **shot** — `assets/recipes/04-release-day-batch-capture/sweep-grid.png`, 1280 × 632, 136 KB.
 
 One command, a set of named artifacts. The asset is about *volume and naming* — the individual tiles don't need to be readable, the keywords do.
 
@@ -68,12 +68,20 @@ The bad tile is real. `./step.sh checkout-broken` leaves `subtotal * '10%'` in t
 
 ## Curate before you shoot, not after
 
-Everything in this grid ends up in a public repository, and window chrome carries more than you think. Two tiles were cut from this shoot after looking at them at full size:
+Everything in this grid ends up in a public repository, and window chrome carries more than the window does. Two things were cut from this shoot after looking at the captures at full size:
 
-- A **Finder** window showed the account name in the sidebar — a work email address and the machine's hostname — from a folder listing that seemed harmless.
-- The first pass had the **bookmarks bar** in frame on every browser tile, including a `Managed Bookmarks` folder that says the profile belongs to a managed device.
+- A **Finder** tile showed the account name in the sidebar — a work email address and the machine's hostname — from a folder listing that had looked harmless.
+- Every browser tile carried the **bookmarks bar**: a `Managed Bookmarks` folder, which says the profile belongs to a managed device, plus two bookmark titles.
 
-Hide the bookmarks bar (`Cmd+Shift+B`) before the sweep rather than cropping it afterwards, and prefer an incognito window for anything you don't want carrying a profile avatar. Do not try to send that shortcut from a script; `System Events` keystrokes need Accessibility permission and fail silently without it, which on the second attempt means you toggle the user's setting and don't know it.
+What matters is **readable text** — addresses, folder and bookmark names, window titles, hostnames. A profile avatar showing one letter is not worth a re-shoot; a bookmark called after a client is.
+
+The bookmarks bar turned out to be surprisingly hard to remove, so save yourself the detour:
+
+- `Cmd+Shift+B` works, but only from your own hands. Sent through AppleScript's `System Events` it needs Accessibility permission and **fails silently** without it — and a silent failure means the second press, the one meant to put the bar back, toggles a setting you never changed.
+- **Incognito does not help.** The bar is a global Chrome setting and incognito windows show it too. It does drop the profile avatar, which is the thing that didn't matter.
+- **Guest mode does** hide it — and opens on Chrome's "Choose Your Search Engine" screen, which needs a click to get past. `--disable-search-engine-choice-screen` is ignored when an instance is already running.
+
+So the tiles here are **cropped to the page**, below the whole toolbar. That is a plain crop, not a splice: nothing is stitched back together, and the sheet shows six screens rather than six window frames. If your bookmarks bar is already off, keep the chrome — it reads better.
 
 The general rule stands: close anything with a client name, a private repo, an inbox, or a chat in it, and read every tile at full size before it goes into the sheet.
 
@@ -92,14 +100,14 @@ Step 2 matters on camera as much as off it: the human curating the list is the h
 
 ## Composing the sheet
 
-Tiles are laid out 3 × 2 at a uniform 401 × 333 box with the keyword under each. Windows come in wildly different aspect ratios, so fit them into the box with letterboxing rather than cropping to fill:
+Tiles are laid out 3 × 2 at a uniform 401 × 262 box with the keyword under each. Windows come in wildly different aspect ratios, so fit them into the box with letterboxing rather than cropping to fill:
 
 ```css
 .tile { display: flex; align-items: center; justify-content: center; background: #eef1f5; }
 .tile img { max-width: 100%; max-height: 100%; }
 ```
 
-A cropped tile loses the window's shape, and the shape is how you recognise it at 400 px.
+Cropping to *fill* the box is the thing to avoid: it takes a bite out of whichever edge doesn't fit, and at 400 px the proportions are most of how you recognise a tile. Cropping the toolbar away before the tile goes in the box is a different act and fine — every tile is then framed the same way.
 
 ## Embed
 
@@ -112,7 +120,7 @@ Recipe 04, replacing the `TODO(assets): A6` placeholder:
 ## Checklist
 
 - [x] Every tile captioned with its keyword; captions not cropped
-- [x] Nothing confidential in any tile — checked at full size, two tiles cut
+- [x] Nothing confidential in any tile — checked at full size; one tile cut, the toolbars cropped
 - [x] Uniform tile geometry, letterboxed rather than cropped
 - [x] One tile is obviously wrong, and wrong for a real reason
 - [x] Under 1 MB

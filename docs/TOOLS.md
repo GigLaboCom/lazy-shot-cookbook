@@ -82,6 +82,8 @@ Give either `stack_position` or `title`. Requires the **windowTracker** feature 
 
 > **`stack_position: 1` is the same trap as `capture_active_window`, wearing a different hat.** Position 1 means "most recently focused", and in an agent session that is very often the terminal the agent is running in — every shell command it runs can put the focus back there. Match by `title` instead: it is the only selector in this tool set that does not move when focus does.
 
+**This is the only tool that can tell two same-titled windows apart.** It resolves the entry to an **OS window handle** and captures that handle; the title is a fallback used only when the handle is gone. `capture_window`, by contrast, has nothing but the title to go on. So when three windows of a hash-routed app all report `Northwind Analytics`, `list_tracked_windows` plus `stack_position` is the way through — the position picks the entry, and the handle picks the window.
+
 ### `list_displays`
 
 No parameters. Returns every connected display with its geometry. Prerequisite for `capture_region` math — and note that the geometry it returns is in logical points while `capture_region` wants physical pixels, so `scale_factor` is a multiplier you have to apply, not a detail you can read past.
@@ -98,9 +100,11 @@ Each entry carries `title`, `process_name`, `stack_position` and `last_seen` (ep
 
 **It is an activity log, not a live window list.** It errs in both directions, and each one bites differently.
 
-*Too many rows:* windows that have since been closed keep theirs, so the same title can appear more than once — typically one live window plus one or more ghosts. Read `last_seen` before concluding you have a title collision. `capture_tracked_window` matched by `title` does a first-match scan down the same most-recent-first order, so it lands on the freshest entry and the ghosts never win. A real collision is two entries with the same title *and* comparable `last_seen`; that one you have to resolve by closing a window.
+*Too many rows:* windows that have since been closed keep theirs, so the same title can appear more than once — typically one live window plus one or more ghosts. Read `last_seen` before concluding you have a title collision. `capture_tracked_window` matched by `title` does a first-match scan down the same most-recent-first order, so it lands on the freshest entry and the ghosts never win. A real collision is two entries with the same title *and* comparable `last_seen`. That one you resolve by position, not by closing anything: `capture_tracked_window` with `stack_position` goes through the window handle rather than the title, so the entries stay distinguishable even when their titles are identical.
 
 *Too few rows:* the log is written on focus events, so **a window that has never been focused since it was created is not in it at all** — a terminal you opened in the background, a window on another Space. It is still a real window, and `capture_window` will find it, because that tool matches against the OS window list rather than this history. If `capture_tracked_window` says "no window matching X" and you can see the window, that is the difference talking; switch tools rather than clicking around to make it appear.
+
+*And you cannot fill the log from a script.* Raising a window with AppleScript — `set index of window N to 1` — puts it in front without registering it here; three windows raised that way stayed absent while windows the human had actually clicked kept their rows. A window created and left frontmost for a couple of seconds did register. Treat the log as a record of where a **person** has been, which is the honest reading of it anyway, and the reason [recipe 04](../recipes/04-release-day-batch-capture/) has a human curating the list rather than an agent assembling one.
 
 **Tabs are invisible here.** The tracker works at window granularity, so a second tab in the same terminal or browser window produces no row — it only changes the existing row's `title` while it is the frontmost tab. Anything you want to capture by name has to be its own window.
 

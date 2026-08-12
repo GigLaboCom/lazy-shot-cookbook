@@ -2,6 +2,8 @@
 
 Every tool Heretic Lazy Shot exposes over MCP, with its real parameters. Verified against **app version 0.0.8**.
 
+> **Re-checked against 0.0.9.** The 23 tool names and the tool count are unchanged. Behaviour is not: 0.0.9 makes the capture save directory configurable, and `ocr_image_path`, `get_app_status` and `add_markers` all had to follow it. Each is flagged below. If you are running 0.0.8, ignore the flags.
+
 Surface: **23 tools · 4 resources · 2 prompts**. Nothing here is aspirational — if a capability isn't listed, it doesn't exist, and a recipe that needs it belongs in an issue rather than a PR.
 
 Every tool call is gated by the app licence, and on the free tier it also draws down a daily quota. Read [that section](./SETUP.md#licence-and-the-free-tier-quota) before designing a loop that calls tools in bulk.
@@ -285,7 +287,7 @@ Same, for an arbitrary image file on disk.
 | `lang`, `variant`, `format` | — | no | As above |
 | `region` | object | no | `{ x, y, width, height }` — restrict OCR to a sub-area |
 
-**Path restriction:** the path must resolve inside the screenshots directory or the app data directory. This is a security boundary, not a bug — an MCP server that would OCR any file on the disk is a file-exfiltration primitive. For gallery items, use `ocr_screenshot`.
+**Path restriction:** the path must resolve inside the screenshots directory or the app data directory — and, from 0.0.9, the save directory you configured, because that is where captures actually land. This is a security boundary, not a bug — an MCP server that would OCR any file on the disk is a file-exfiltration primitive. For gallery items, use `ocr_screenshot`.
 
 `region` is the cheap way to OCR one column of a table without re-capturing.
 

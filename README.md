@@ -29,6 +29,10 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
 
 *An agent fixing a layout, one defect per iteration — and looking at the result before claiming it's done. Every frame is a real capture, named `hero-before` through `hero-after`. → [recipe 00](./recipes/00-see-what-you-shipped/)*
 
+[![The broken pricing card that opens the demo, captioned "Agents ship UI changes blind."](./assets/demo/demo-poster.png)](./assets/demo/lazy-shot-cookbook-demo.mp4)
+
+*[**The 45-second demo**](./assets/demo/lazy-shot-cookbook-demo.mp4) — connecting the server, the loop above running live, and the named library it leaves behind. Silent and captioned; nothing in it depends on sound. Shot with the [A10 scenario](./scenarios/A10-demo-video.md).*
+
 **Why agents need this**
 
 - **Eyes.** Agents work blind. A capture tool returns a `file_path`; a local agent reads the image and finally sees what you see.

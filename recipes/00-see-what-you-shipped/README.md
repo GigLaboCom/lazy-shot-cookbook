@@ -10,6 +10,8 @@
 
 *Four captures, one per iteration: `hero-before` → `hero-iter-1` → `hero-iter-2` → `hero-after`. Shot with the [A2 scenario](../../scenarios/A2-iteration-series.md).*
 
+The same loop, running live rather than assembled from its frames, is the middle beat of the [45-second demo](../../assets/demo/lazy-shot-cookbook-demo.mp4). [The prompt that produced it](#the-prompt-in-the-demo) is below, verbatim.
+
 ## The autonomy ladder
 
 **Rung 1 — self-refreshing stage (fully autonomous).**
@@ -44,6 +46,35 @@ capture_window "myapp" (keyword "<feature>-before")
                                      done ──▶ keyword "<feature>-after"
                                           ──▶ before/after pair into the PR
 ```
+
+## The prompt in the demo
+
+The demo video's loop is one unedited run of this. It is the prompt below with the placeholders filled in, plus the three guardrails a recorded session needs — the window has to be addressed by title, and nothing may print an absolute path:
+
+```text
+The pricing card at http://localhost:5173/#/pricing is broken. Chrome runs it
+with hot reload. Call list_tracked_windows first and use the window TITLE to
+target it — never the process name, and never stack_position.
+
+Goal: heading inside the card and wrapping, the billing period on the same
+baseline as the amount, the button full width at the bottom.
+
+1. Before your first edit: capture_tracked_window title "<title>",
+   keyword "hero-before".
+2. Fix ONE defect at a time in app/src/overrides.css. After each edit:
+   capture_tracked_window title "<title>", keyword "hero-iter-N", read the
+   image, and state what is fixed and what is not.
+3. Never capture_active_window, and never stack_position: 1 — both resolve to
+   this terminal as soon as you run a shell command.
+4. When the last capture matches the goal, keyword it "hero-after".
+5. Never print an absolute file path — mine start with my home directory and
+   this session is being recorded. Refer to captures by keyword only. At the
+   end print the four keywords, one per line, and nothing else.
+```
+
+Rule 5 is not paranoia and it is not something a permission setting solves. The agent is entitled to read those files; what ends up on camera is what it **prints**. The first take of the demo was thrown away because the closing summary listed two absolute paths, each beginning with a home directory that is a work email address.
+
+Rules 1 and 3 exist because `capture_active_window` and `stack_position: 1` both resolve to the terminal the agent is typing in, the moment it runs a shell command. See [docs/TOOLS.md](../../docs/TOOLS.md).
 
 ## Copy-paste prompt
 

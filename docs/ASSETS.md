@@ -23,20 +23,22 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 
 ## The ten
 
-| ID | File | Type | Size | Length | Appears in |
-| --- | --- | --- | --- | --- | --- |
-| A1 | `assets/brand/og-1200x630.png` | Still | 1200×630 | — | Social/link previews |
-| A2 | `assets/recipes/00-see-what-you-shipped/iteration-series.gif` | Recording | 1280 wide | ~10 s | README hero + recipe 00 |
-| A3 | `assets/recipes/01-self-documenting-ui/annotated-flow.png` | Filmstrip | 1280 wide | — | Recipe 01 |
-| A4 | `assets/recipes/02-visual-bug-fixing/before-after.png` | Diptych | 1280 wide | — | Recipe 02 |
-| A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | 1280 wide | ~10 s | Recipe 03 |
-| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | 1280 wide | — | Recipe 04 |
-| A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | 1280 wide | — | Recipe 05 |
-| A8 | `assets/setup/settings-mcp.png` | Still | 1280 wide | — | README setup + SETUP.md |
-| A9 | `assets/setup/claude-code-connected.png` | Still | 900 wide | — | SETUP.md |
-| A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | 1920×1080 | 45 s | X thread, product page, Show HN |
+| ID | File | Type | Shipped | Appears in |
+| --- | --- | --- | --- | --- |
+| A1 | `assets/brand/og-1200x630.png` | Still | ✅ 1200×630, 128 KB | Social/link previews |
+| A2 | `assets/recipes/00-see-what-you-shipped/iteration-series.gif` | Recording | ✅ 1280×804, 260 KB, ~10 s | README hero + recipe 00 |
+| A3 | `assets/recipes/01-self-documenting-ui/annotated-flow.png` | Filmstrip | ✅ 1280×473, 100 KB | Recipe 01 |
+| A4 | `assets/recipes/02-visual-bug-fixing/before-after.png` | Diptych | ✅ 1276×390, 48 KB | Recipe 02 |
+| A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | ⬜ 1280 wide, ~10 s | Recipe 03 |
+| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ⬜ 1280 wide | Recipe 04 |
+| A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | ✅ 1280×781, 184 KB | Recipe 05 |
+| A8 | `assets/setup/settings-mcp.png` | Still | ✅ 1280×500, 72 KB | README setup + SETUP.md |
+| A9 | `assets/setup/claude-code-connected.png` | Still | ✅ 890×184, 20 KB | SETUP.md |
+| A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | ⬜ 1920×1080, 45 s | X thread, product page, Show HN |
 
-GIFs stay under 5 MB, PNGs under 1 MB (WebP if not), the video under 20 MB.
+Seven of ten. The three outstanding are the two recordings and the sweep grid — each needs a staged screen rather than a repeatable command.
+
+Widths are what the asset ships at, not a target to hit by upscaling. A8 wanted 1280 rather than the 900 first specified because the smallest label has to survive; A9 stayed at 890 because terminal glyphs go mushy the moment you enlarge them. GIFs stay under 5 MB, PNGs under 1 MB (WebP if not), the video under 20 MB.
 
 Every asset has a step-by-step scenario in **[scenarios/](../scenarios/)** — stage setup, the prompt to paste, the code to break and fix, and the output to expect. A deliberately broken demo app ships alongside them. The three recordings are also summarised under [Scenarios](#scenarios) below.
 
@@ -78,16 +80,18 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Full scenario: [A3-annotated-flow.md](../scenarios/A3-annotated-flow.md)**
 
-**Must contain:** three panels left to right — (1) a raw `capture_window` of a settings dialog, (2) the same shot open in Lazy Shot with numbered markers ①–④ showing on the elements a doc would describe, (3) a fragment of the generated Markdown with numbered captions matching those markers. A thin caption strip under panels 1 and 2 with their keywords (`settings-step-1`, `settings-step-1-markers`).
+**Must contain:** three panels left to right — (1) a raw capture of a settings screen, (2) the same shot open in Lazy Shot with numbered markers ①–④ showing on the rows a doc would describe, (3) the generated docs page with numbered captions matching those markers. A caption strip under each panel carrying its filename (`settings-step-1`, `settings-step-1-markers`, `docs/workspace-settings.md`).
 
-**Produce:** run the recipe 01 prompt on Lazy Shot's own Settings dialog. Panel 3 is a screenshot of the agent's Markdown output. **Panel 2 is a capture of the app with markers toggled on**, cropped to the canvas — markers are metadata and never appear in the layer's own file ([why](./TOOLS.md#add_markers)). Arrange all three in the Compositor.
+**Produce:** ✅ **done** — shot 2026-08-12, 1280 × 473; composed by [`scenarios/a3/annotated-flow.html`](../scenarios/a3/annotated-flow.html), one command to re-render. Run the recipe 01 prompt against the demo app's `#/settings` route. **Panel 2 is a capture of the app with markers toggled on** — markers are metadata and never appear in the layer's own file ([why](./TOOLS.md#add_markers)), so it is shot from the `Beautify Screenshot` window with the Markers layer active.
 
-**The point it must make:** the marker layer is a *separate file* from the original. Both panels visible side by side, with both keywords legible, is the argument.
+**The point it must make:** the marker layer is a *separate file* from the original. Both panels visible side by side, framing the same rectangle, with both filenames legible, is the argument.
+
+**Watch for:** the captions belong to the composition, not the frame — the compositor labels the open image by ID, never by keyword. And `capture_region` wants physical pixels; the scenario has [the arithmetic](../scenarios/A3-annotated-flow.md#capture_region-counts-in-physical-pixels).
 
 **Embed** — recipe 01:
 
 ```markdown
-![A settings dialog captured, the same capture open in Lazy Shot with numbered markers, and the generated Markdown whose captions match the marker numbers](../../assets/recipes/01-self-documenting-ui/annotated-flow.png)
+![A settings screen captured, the same capture open in Lazy Shot with four numbered markers on its controls, and the generated docs page whose captions match those numbers](../../assets/recipes/01-self-documenting-ui/annotated-flow.png)
 ```
 
 ---

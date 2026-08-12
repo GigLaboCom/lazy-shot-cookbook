@@ -30,7 +30,7 @@ Shot-by-shot scenarios with timings are in [docs/ASSETS.md](../docs/ASSETS.md#sc
 ## Conventions
 
 - **Format:** PNG for stills, GIF for the two loops, MP4 (H.264) for the demo, WebP if a PNG would exceed 1 MB.
-- **Width:** 1280px for full-width figures, 900px for setup screenshots. GitHub scales down; it doesn't scale up gracefully.
+- **Width:** 1280px for full-width figures. Setup screenshots go narrower only when the content is already at its native pixel size — a terminal, mostly. GitHub scales down; it doesn't scale up gracefully. The width that matters is the one where the *smallest label in the frame* is still readable, so check that before the number.
 - **Size:** GIFs under 5 MB, PNGs under 1 MB, the video under 20 MB. README images load before anyone reads a word.
 - **Naming:** the exact filenames in [docs/ASSETS.md](../docs/ASSETS.md) — recipes and the checklist reference them by name.
 - **Theme:** light, unless the asset is specifically about dark mode.

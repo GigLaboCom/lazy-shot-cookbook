@@ -4,7 +4,9 @@
 
 **Idea:** treat documentation screenshots as *build artifacts*. The agent captures them, numbers them, names them — and regenerates the whole set on demand.
 
-<!-- TODO(assets): A3 — assets/recipes/01-self-documenting-ui/annotated-flow.png — spec in docs/ASSETS.md -->
+![A settings screen captured, the same capture open in Lazy Shot with four numbered markers on its controls, and the generated docs page whose captions match those numbers](../../assets/recipes/01-self-documenting-ui/annotated-flow.png)
+
+*One capture, three files. The badges in the middle panel are drawn by the app on its **Markers** layer — the marker file's own pixels are identical to the left panel, which is why the right-hand docs page is written from the marker **list**, not from the marker image. Shot with the [A3 scenario](../../scenarios/A3-annotated-flow.md).*
 
 ## The loop
 

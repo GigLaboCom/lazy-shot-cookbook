@@ -1,0 +1,173 @@
+<!doctype html>
+<!--
+  Source of assets/recipes/01-self-documenting-ui/annotated-flow.png.
+
+  Three panels, left to right:
+    1. panel-1-capture.png    — capture_region of the demo app's settings screen
+    2. panel-2-markers.png    — the SAME file open in Lazy Shot's compositor with
+                                the Markers layer switched on. Badges exist only
+                                there; the marker layer's own PNG is pixel-identical
+                                to panel 1, which is the point of the asset.
+    3. typeset inline below   — the docs page written from the marker list
+
+  The four numbers in panel 3 are the four markers in panel 2, in the same order
+  and the same red. If you move a marker, change both, or the asset argues
+  against itself.
+
+  Render:  scripts/render-html.sh scenarios/a3/annotated-flow.html \
+             assets/recipes/01-self-documenting-ui/annotated-flow.png 1280 473
+  See:     ../A3-annotated-flow.md
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A3 — the annotated documentation flow</title>
+    <style>
+      :root {
+        --page: #ffffff;
+        --fg: #1c2024;
+        --muted: #6b7280;
+        --line: #dde2e8;
+        --rule: #e9edf1;
+        --marker: #dc2626;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1280px;
+        height: 473px;
+        overflow: hidden;
+        background: var(--page);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        padding: 24px;
+        display: flex;
+        gap: 22px;
+      }
+
+      .col { width: 396px; }
+
+      .frame {
+        width: 396px;
+        height: 377px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #f3f4f6;
+      }
+
+      .frame > img { display: block; width: 100%; height: 100%; }
+
+      /* The caption is where the keyword lives. The compositor's own chrome
+         shows the screenshot ID (#819), not the keyword, so the two filenames
+         have to be stated here — they are the evidence that annotating forked
+         the file rather than overwriting it. */
+      figcaption { margin-top: 12px; }
+
+      .file {
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+      }
+
+      .role {
+        margin-top: 3px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* ---- panel 3: the generated docs page ---- */
+
+      .docs {
+        padding: 18px;
+        background: #fff;
+      }
+
+      .crumb { font-size: 11px; color: var(--muted); }
+
+      .docs h1 {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 4px 0 12px;
+      }
+
+      .thumb {
+        width: 150px;
+        border: 1px solid var(--rule);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .thumb img { display: block; width: 100%; }
+
+      ol { list-style: none; margin-top: 14px; }
+
+      li {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 11.5px;
+      }
+
+      li:last-child { border-bottom: 0; }
+
+      /* Same fill, same digits as the badges in panel 2. */
+      .n {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--marker);
+        color: #fff;
+        font-size: 10.5px;
+        font-weight: 700;
+      }
+
+      .term { font-weight: 700; }
+      .gloss { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <figure class="col">
+      <div class="frame"><img src="./panel-1-capture.png" alt="The workspace settings screen, captured" /></div>
+      <figcaption>
+        <div class="file">settings-step-1</div>
+        <div class="role">the capture</div>
+      </figcaption>
+    </figure>
+
+    <figure class="col">
+      <div class="frame"><img src="./panel-2-markers.png" alt="The same capture open in Lazy Shot with four numbered markers on its controls" /></div>
+      <figcaption>
+        <div class="file">settings-step-1-markers</div>
+        <div class="role">a second file — markers shown on the Markers layer</div>
+      </figcaption>
+    </figure>
+
+    <figure class="col">
+      <div class="frame docs">
+        <div class="crumb">Docs › Workspace › Settings</div>
+        <h1>Workspace settings</h1>
+        <div class="thumb"><img src="./panel-1-capture.png" alt="" /></div>
+        <ol>
+          <li><span class="n">1</span><span><span class="term">Workspace name</span> <span class="gloss">— the display name used across the app.</span></span></li>
+          <li><span class="n">2</span><span><span class="term">Default currency</span> <span class="gloss">— applied to every new dashboard.</span></span></li>
+          <li><span class="n">3</span><span><span class="term">Weekly digest</span> <span class="gloss">— a Monday summary email.</span></span></li>
+          <li><span class="n">4</span><span><span class="term">Retention</span> <span class="gloss">— how long raw events are kept.</span></span></li>
+        </ol>
+      </div>
+      <figcaption>
+        <div class="file">docs/workspace-settings.md</div>
+        <div class="role">written from the marker list, numbers intact</div>
+      </figcaption>
+    </figure>
+  </body>
+</html>

@@ -25,12 +25,14 @@ Capture a rectangular region of a display.
 
 | Parameter | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `x`, `y` | integer | yes | Top-left corner |
-| `width`, `height` | integer | yes | Size in pixels |
+| `x`, `y` | integer | yes | Top-left corner, in physical pixels |
+| `width`, `height` | integer | yes | Size in physical pixels |
 | `display` | integer \| string | no | Display index (0-based, default `0`), system ID, or name |
 | `keyword` | string | yes | Label assigned in the same call |
 
 Coordinates are display-relative. On a multi-monitor rig, call `list_displays` first — guessing is how you end up with a screenshot of the wrong monitor's wallpaper.
+
+**All four numbers are physical pixels, and `list_displays` does not report in physical pixels.** On a Retina screen listed as `2056 × 1329, scale_factor: 2.0`, the region you can address runs to 4112 × 2658; `x: 3800` is a legal coordinate on that display and returns its right-hand edge. Everything a window tells you about itself — `window.screenX`, CSS layout boxes, the geometry in `list_displays` — is in logical points, so **double it** before it goes into this call. Hand the point values over unchanged and you capture the top-left quarter of what you meant, at half the resolution that was available. The PNG comes back at exactly the `width × height` you requested, which makes the mistake easy to spot: the image is the size you asked for, and shows the wrong thing.
 
 ### `capture_window`
 
@@ -80,7 +82,7 @@ Give either `stack_position` or `title`. Requires the **windowTracker** feature 
 
 ### `list_displays`
 
-No parameters. Returns every connected display with its geometry. Prerequisite for `capture_region` math.
+No parameters. Returns every connected display with its geometry. Prerequisite for `capture_region` math — and note that the geometry it returns is in logical points while `capture_region` wants physical pixels, so `scale_factor` is a multiplier you have to apply, not a detail you can read past.
 
 ### `list_tracked_windows`
 
@@ -241,6 +243,8 @@ Open the Beautify compositor on a capture.
 
 This one opens UI. It is a hand-off to the human, not a headless render step: the agent stages the image, you finish it.
 
+**Two things to know if the agent then has to photograph that window.** It is a separate window titled **`Beautify Screenshot`**, so `capture_window "Heretic Lazy Shot"` matches the library window instead and returns a table of rows. And call [`show_window`](#show_window) first: with the main window hidden, the compositor does not reliably come to the front, and a hidden window captures as a flat empty frame rather than an error.
+
 ## OCR (3)
 
 Tesseract, running locally. ~125 languages. Nothing is uploaded anywhere, by anyone — the honest counterpart to agent vision, where pixels do go to your model provider.
@@ -313,6 +317,8 @@ Errors come back as structured MCP errors, not prose, so an agent can branch on 
 | Window not found | Minimised, closed, or the fuzzy query matched nothing | `list_tracked_windows`, then retry with a better query |
 | Tracked-window tools error out | `windowTracker` feature flag off | Settings → Experimental |
 | Blank or wrong-monitor region | Display index guessed | `list_displays` first |
+| Region is the right size but shows the top-left quarter of the target | Coordinates passed in logical points on a 2× display | Multiply x, y, width and height by `scale_factor` — [`capture_region`](#capture_region) |
+| Capture of the app shows a table of screenshots, or a flat empty frame | The compositor is its own window, and hidden windows still capture | Query `"Beautify Screenshot"`; `show_window` before `edit_screenshot` |
 | OCR path rejected | Path outside the allowed directories | Use `ocr_screenshot`, or move the file into the screenshots directory |
 
 Every operation, successful or not, is logged to the app's rotating session log in `~/.heretic-lazy-shot/logs/` (one file per app run). The format is greppable:

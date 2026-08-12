@@ -24,7 +24,7 @@ Each beat is a 1920 × 960 panel with the caption burned into a 120 px band unde
 | 32–40 s | The library | The four `hero-*` rows, then `search_screenshots` returning them by name | *Every step, named and searchable.* |
 | 40–45 s | The close | Repo URL, product URL, the one-time price | *Give your agent eyes.* |
 
-Beat 1 is cut from the recorder's own styled export rather than the raw capture — zoomed past the window title bars, which buys about 15% larger text in the one beat that is a paragraph of it. Its framing therefore differs slightly from beats 2 and 3. Check the export for a drawn mouse cursor before using it; the first one had an I-beam sitting in the middle of the paragraph.
+Beat 1 is cut from the recorder's own export rather than from the raw capture inside the project bundle. The export frames past the window title bars, so neither the browser's tab strip nor the terminal's session title is in the shot — at the same scale, not zoomed. Check any export for a drawn mouse cursor before using it: the first one had an I-beam sitting in the middle of the paragraph, which is the one thing the frame exists to show.
 
 ## Beat 1, and why it is not what this page used to ask for
 

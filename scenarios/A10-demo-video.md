@@ -118,15 +118,22 @@ A video committed to a GitHub repository cannot be played from that repository. 
 | `![](demo.mp4)` | renders a plain link |
 | Opening the raw file | serves `application/octet-stream`, so the browser downloads it |
 
-The README therefore points the poster at **jsDelivr**, which serves the same bytes out of this repository as `video/mp4` with range requests, so it plays and seeks in the browser:
+So the README plays a **GitHub attachment**: drag the file into a comment box, and the `github.com/user-attachments/assets/…` URL it produces renders as an inline player, controls and all. Put that URL bare on its own line — an autolink or an `![]()` wrapper suppresses the player, and MD034 needs a `markdownlint-disable-next-line` above it.
+
+Two things about attachments that are easy to get wrong:
+
+- **The asset is private until the comment is posted.** Before that it is `404` to everyone but the uploader, so a README wired to a draft looks fine to you and is broken for every visitor. [Issue #3](https://github.com/GigLaboCom/lazy-shot-cookbook/issues/3) is that posted comment, and exists only to keep the asset published — deleting it will most likely take the README's player with it.
+- **It is a separate copy of the file.** Rebuilding the video updates `assets/demo/` and leaves the attachment untouched. Nothing in CI compares them. Re-upload and update the README in the same change as any re-shoot.
+
+The fallback, if the attachment ever breaks, is **jsDelivr**, which serves the repository's own bytes as `video/mp4` with range requests, so it plays and seeks in a browser tab:
 
 ```text
 https://cdn.jsdelivr.net/gh/GigLaboCom/lazy-shot-cookbook@main/assets/demo/lazy-shot-cookbook-demo.mp4
 ```
 
-Two consequences of the `@main` reference. It always follows the branch, so a rebuilt video needs no edit — but jsDelivr caches it for 12 hours at the edge and seven days in a visitor's browser, so a fix is not visible immediately. Pin `@<tag>` instead if you ever need a version to be immutable.
+`@main` follows the branch, so a rebuild needs no edit — but jsDelivr caches for 12 hours at the edge and seven days in a visitor's browser. Pin `@<tag>` if a version ever has to be immutable.
 
-**For an inline player** — controls in the README itself rather than a click-through — the only mechanism is a GitHub *attachment*: drag the file into a comment box, and the `github.com/user-attachments/assets/…` URL it produces renders as a player. That is a separate copy of the file, uploaded by hand, and it does not update when the video is rebuilt. If the README ever uses one, re-upload it as part of re-shooting.
+`assets/demo/demo-poster.png` is the video's opening frame at full size. The README no longer needs it — the player supplies its own — but it is the thumbnail for placements that cannot embed a player: the X card, the product page, a Show HN post.
 
 ## Checklist
 

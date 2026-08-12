@@ -48,6 +48,8 @@ Verified against Vite 7.3.6 / Node 22.
 
 A2 is a cut out of A10, so record that session once and take both. A7's dialog appears in the same app you already have open for A4.
 
+For A10 specifically: shoot it against a copy of the app with `src/steps/`, `step.sh` and the `DEFECT N` comments removed. An agent asked to fix the card blind will otherwise find the answers and apply them, which is what happened twice — see [the A10 scenario](./A10-demo-video.md#beat-1-and-why-it-is-not-what-this-page-used-to-ask-for).
+
 ## The scenarios
 
 | File | Asset | Needs the app? | Shot |
@@ -60,7 +62,7 @@ A2 is a cut out of A10, so record that session once and take both. A7's dialog a
 | [A6-sweep-grid.md](./A6-sweep-grid.md) | Batch capture contact sheet | No — your open windows | ✅ |
 | [A7-ocr-to-markers.md](./A7-ocr-to-markers.md) | OCR boxes → markers | Yes — error dialog | ✅ |
 | [A8-A9-setup-shots.md](./A8-A9-setup-shots.md) | Setup screenshots | No — Lazy Shot itself | ✅ |
-| [A10-demo-video.md](./A10-demo-video.md) | 45-second demo | Yes — pricing | ⬜ |
+| [A10-demo-video.md](./A10-demo-video.md) | 45-second demo | Yes — pricing | ✅ |
 
 ## Before you start
 

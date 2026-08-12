@@ -34,9 +34,10 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 | A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | ✅ 1280×781, 184 KB | Recipe 05 |
 | A8 | `assets/setup/settings-mcp.png` | Still | ✅ 1280×500, 72 KB | README setup + SETUP.md |
 | A9 | `assets/setup/claude-code-connected.png` | Still | ✅ 890×184, 20 KB | SETUP.md |
-| A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | ⬜ 1920×1080, 45 s | X thread, product page, Show HN |
+| A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | ✅ 1920×1080, 2.4 MB, 45.000 s | X thread, product page, Show HN |
+| A10b | `assets/demo/lazy-shot-cookbook-demo-card.mp4` | Video | ✅ 1920×1080, 2.1 MB, 45.000 s | Alternative opening beat |
 
-Nine of ten. Only the demo video is outstanding, and it is the one asset that needs a screen recording rather than a repeatable command.
+Ten of ten. The video ships in two cuts that differ only in the opening four seconds; [the A10 scenario](../scenarios/A10-demo-video.md) explains why there are two.
 
 Widths are what the asset ships at, not a target to hit by upscaling. A8 wanted 1280 rather than the 900 first specified because the smallest label has to survive; A9 stayed at 890 because terminal glyphs go mushy the moment you enlarge them. GIFs stay under 5 MB, PNGs under 1 MB (WebP if not), the video under 20 MB.
 
@@ -250,19 +251,35 @@ The library filling on the right is the entire asset. If the browser action is h
 
 ### A10 scenario — the 45-second demo (`assets/demo/lazy-shot-cookbook-demo.mp4`)
 
-For the X thread, the product page, and the Show HN post. Silent, captioned, loopable. Four beats.
+For the X thread, the product page, and the Show HN post. Silent, captioned,
+loopable. Five beats, 45.000 s exactly.
 
 | Time | Beat | On screen |
 | --- | --- | --- |
-| 0–5 s | **The problem** | An agent in the terminal says a UI change is done. The app window beside it visibly disagrees. Caption: *"Agents ship UI changes blind."* |
-| 5–12 s | **The setup** | The Settings → MCP toggle, then one line in the terminal: `claude mcp add --transport http lazy-shot http://localhost:5055/mcp`, then `/mcp` listing the tools. Caption: *"One command. 23 tools."* |
-| 12–30 s | **The loop** | The A2 scenario, uncut: edit → repaint → capture → the agent reads the image and says what's still wrong → repeat → done. Caption: *"Now it looks before it says done."* |
-| 30–40 s | **The library** | Cut to the library: the `-before`, `-iter-N`, `-after` series with keywords readable. Then `search_screenshots` recalling it by name. Caption: *"Every step, named and searchable."* |
-| 40–45 s | **The close** | The cookbook README on screen, repo URL and the one-time price visible. Caption: *"Give your agent eyes."* |
+| 0–4 s | **The problem** | The blind take: an agent reports the card fixed, having been told not to capture anything. On screen, its own closing line — the same edit also lands on the checkout and settings screens, which it has not looked at either. Caption: *"Agents ship UI changes blind."* |
+| 4–14 s | **The setup** | Settings → MCP toggle; the line `claude mcp add --transport http lazy-shot http://localhost:5055/mcp`; then `/mcp` scrolled live through all 23 tool names. Caption: *"One command. 23 tools."* |
+| 14–32 s | **The loop** | The A2 session, four cuts out of one take, sped unevenly — fast where the machine is only typing, near real time on the two verdicts the viewer has to read. Caption: *"Now it looks before it says done."* |
+| 32–40 s | **The library** | The library table, the four `hero-*` rows with keywords readable; then `search_screenshots { query: "hero" }` returning them by name. Caption: *"Every step, named and searchable."* |
+| 40–45 s | **The close** | Repo URL, product URL, the one-time price. Caption: *"Give your agent eyes."* |
 
-Rules for this one: no voice-over (it gets muted anyway), captions large enough to read on a phone, and the first three seconds must work as a silent autoplay thumbnail — that means the disagreement between "done" and the broken window has to be visible immediately.
+Rules: no voice-over (it gets muted anyway), captions at 58 px — about 1/18th
+of frame height, which is what survives a phone — and the first four seconds
+have to work as a silent autoplay thumbnail.
 
-Cut A2 out of this video rather than filming it twice.
+**Two cuts ship.** They differ only in beat 1. The default opens on the blind
+agent's claim; `-card.mp4` opens on the broken pricing card alone, no agent and
+no claim, which reads faster as a thumbnail. Pick per placement.
+
+The beat as originally specified — the agent says done, the window plainly
+disagrees, both visible at once — **was not shot, because it could not be shot
+honestly.** Four takes. Told to capture, the agent captures, reads the image
+and reports exactly what is still wrong; told not to capture, it writes
+plausible CSS and is broadly right. What it cannot do is say what the change
+looks like, or what it did to the two screens it never opened. That is the
+honest version of the claim, and it is what beat 1 shows.
+
+Beat 3 is the A2 session recorded live rather than assembled from A2's stills.
+Cut A2 out of the recording rather than filming it twice.
 
 ## House rules for all ten
 

@@ -13,7 +13,7 @@ Images used by the cookbook. The per-file specification — what each asset must
 assets/
 ├── brand/      logo, icon, social image (trademarked — see LICENSE)
 ├── setup/      screenshots of the setup path itself
-├── demo/       the 45-second demo video
+├── demo/       the 45-second demo video, in two cuts
 └── recipes/    one subdirectory per recipe: NN-slug/
 ```
 

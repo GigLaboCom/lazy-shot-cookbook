@@ -19,6 +19,8 @@ Every tool call is gated by the app licence, and on the free tier it also draws 
 
 Captures are headless and silent: no overlay, no editor, and the main window is not brought forward (the app only refreshes its library list in the background). There is currently no on-screen indicator that a capture happened — the audit trail is the log. A successful capture returns `{ id, file_path, width, height, keyword? }`.
 
+One consequence worth knowing before you photograph the app itself: the library list refreshes live, so a capture of Lazy Shot's own window shows every row that existed when the call was made — including the rows your earlier captures created. It does not show its own row. If you are recording the library filling up, [`delete_screenshot`](#delete_screenshot) each recording frame as you take it; the delete is soft, so the row leaves the list and the file stays where you need it.
+
 ### `capture_region`
 
 Capture a rectangular region of a display.

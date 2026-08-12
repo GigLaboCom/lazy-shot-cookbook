@@ -6,7 +6,9 @@
 
 Lazy Shot doesn't click — deliberately. It does the part browser tools do badly: a permanent, searchable, annotated visual record.
 
-<!-- TODO(assets): A5 — assets/recipes/03-complex-site-navigation/session-replay.gif — spec in docs/ASSETS.md -->
+![Five steps through a bookshop site, each one landing in the Lazy Shot library as a named row, so the whole session is on disk before anyone asks what went wrong](../../assets/recipes/03-complex-site-navigation/session-replay.gif)
+
+*Left: the page after each action. Right: the library, newest first. The last step is the one that matters — the agent clicks a real `Add to basket` button on an in-stock item and the page comes back identical, because the form has no `action`. Nothing announces that. The evidence is already filed. Shot with the [A5 scenario](../../scenarios/A5-session-replay.md).*
 
 ## The navigation loop
 
@@ -76,6 +78,14 @@ With `format: "metadata"` you also get a bounding box per word, which turns "fin
 ## Post-mortems for free
 
 A failed run stops being a mystery: `search_screenshots "<task-slug>"` returns every step in order. Scroll the sequence, find the exact frame where reality diverged from the plan, fix the prompt or the selector. This is the debugging experience browser logs never give you.
+
+## When a step changes nothing
+
+The most useful capture in a session is often the one that looks identical to the one before it. Sites lie in both directions: a button that promises a loading state and submits a form with no `action`, a filter that repaints without filtering, a save that toasts and persists nothing. The DOM reads like success every time.
+
+Two frames that match, both named and both timestamped, are how you tell "the click didn't land" from "the click landed and did nothing" — and only one of those is a bug in your automation. So capture after the action that you *expect* to be a no-op too, and never let the agent skip a capture because it thinks nothing happened.
+
+The GIF above ends on exactly this: the click on **Add to basket** is real, the page comes back byte-identical, and the only trace anywhere is a `?` appended to the URL.
 
 ## Requirements & honesty
 

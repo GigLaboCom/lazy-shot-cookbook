@@ -29,14 +29,14 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 | A2 | `assets/recipes/00-see-what-you-shipped/iteration-series.gif` | Recording | ✅ 1280×804, 260 KB, ~10 s | README hero + recipe 00 |
 | A3 | `assets/recipes/01-self-documenting-ui/annotated-flow.png` | Filmstrip | ✅ 1280×473, 100 KB | Recipe 01 |
 | A4 | `assets/recipes/02-visual-bug-fixing/before-after.png` | Diptych | ✅ 1276×390, 48 KB | Recipe 02 |
-| A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | ⬜ 1280 wide, ~10 s | Recipe 03 |
+| A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | ✅ 1280×650, 483 KB, 9.3 s | Recipe 03 |
 | A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ⬜ 1280 wide | Recipe 04 |
 | A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | ✅ 1280×781, 184 KB | Recipe 05 |
 | A8 | `assets/setup/settings-mcp.png` | Still | ✅ 1280×500, 72 KB | README setup + SETUP.md |
 | A9 | `assets/setup/claude-code-connected.png` | Still | ✅ 890×184, 20 KB | SETUP.md |
 | A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | ⬜ 1920×1080, 45 s | X thread, product page, Show HN |
 
-Seven of ten. The three outstanding are the two recordings and the sweep grid — each needs a staged screen rather than a repeatable command.
+Eight of ten. The two outstanding are the demo video and the sweep grid — both need a staged screen rather than a repeatable command, and the sweep grid needs a curated set of your own windows.
 
 Widths are what the asset ships at, not a target to hit by upscaling. A8 wanted 1280 rather than the 900 first specified because the smallest label has to survive; A9 stayed at 890 because terminal glyphs go mushy the moment you enlarge them. GIFs stay under 5 MB, PNGs under 1 MB (WebP if not), the video under 20 MB.
 
@@ -118,14 +118,18 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Full scenario: [A5-session-replay.md](../scenarios/A5-session-replay.md)**
 
-**Must show:** one real browser flow stepping forward, each step landing in the library as a named capture (`checkout-step-1` … `checkout-step-5`). [Scenario](#a5-scenario--the-flight-recorder-10-s).
+**Must show:** one real browser flow stepping forward, each step landing in the library as a named capture (`books-step-1` … `books-step-5`). [Scenario](#a5-scenario--the-flight-recorder-10-s).
 
-**The point it must make:** every step is a named artifact. The keywords carry that; without them this is just a screen recording of a browser.
+**Produce:** ✅ **done** — shot 2026-08-12, 1280 × 650, 9.3 s, 483 KB on `books.toscrape.com`. Each frame is a pair of window crops — browser viewport left, library rows right — composed on a white card, never a `capture_display`.
+
+**The point it must make:** every step is a named artifact. The keywords carry that; without them this is just a screen recording of a browser. The last step is a real failure found on the site, not a staged one: a submit button on an in-stock item whose form has no `action`, so the click reloads the page and adds nothing.
+
+**Watch for:** a capture of the library becomes a row in the library. Soft-delete each recording frame as you take it or half the visible rows end up being the recording of the recording — [the detail](../scenarios/A5-session-replay.md#delete-each-recording-frame-as-you-take-it).
 
 **Embed** — recipe 03:
 
 ```markdown
-![Five browser captures replayed in sequence, each labelled with its step keyword, forming a visual log of one navigation session](../../assets/recipes/03-complex-site-navigation/session-replay.gif)
+![Five steps through a bookshop site, each one landing in the Lazy Shot library as a named row, so the whole session is on disk before anyone asks what went wrong](../../assets/recipes/03-complex-site-navigation/session-replay.gif)
 ```
 
 ---
@@ -232,16 +236,15 @@ Don't speed-ramp the edits into a blur. The point is that a real loop is short, 
 
 ### A5 scenario — "the flight recorder" (10 s)
 
-Layout: **left** browser window, **right** the Lazy Shot library list, visible the whole time.
+Layout: **left** the browser viewport, **right** the Lazy Shot library list. Two separate window captures composed into one card per frame, never a `capture_display`.
 
 | Time | On screen |
 | --- | --- |
-| 0–2 s | Agent acts in the browser (click through to a listing page). A capture lands: a new row appears in the library on the right, keyword `checkout-step-1` |
-| 2–6 s | Three more actions, three more rows appearing in sequence — `-step-2`, `-step-3`, `-step-4`. Rows accumulate; nothing is discarded |
-| 6–8 s | A step goes wrong: the page shows an unexpected state. The capture still lands, `checkout-step-5` |
-| 8–10 s | Cut to the library filtered by `checkout-step` — five rows, in order, with thumbnails. Hold |
+| 0–1.8 s | The catalogue. A capture lands: a new row at the top of the library, keyword `books-step-1` |
+| 1.8–6.3 s | Three more actions, three more rows in sequence — `-step-2`, `-step-3`, `-step-4`. Rows accumulate and push the previous session's rows down; nothing is discarded |
+| 6.3–9.3 s | The click that does nothing. The page returns identical, the capture still lands as `books-step-5`, and the held final frame shows all five steps in order |
 
-The library filling in real time on the right is the entire asset. If the browser action is hard to follow, that's fine — the eye should be on the accumulating rows.
+The library filling on the right is the entire asset. If the browser action is hard to follow, that's fine — the eye should be on the accumulating rows.
 
 ### A10 scenario — the 45-second demo (`assets/demo/lazy-shot-cookbook-demo.mp4`)
 

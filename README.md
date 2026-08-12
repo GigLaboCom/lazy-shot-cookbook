@@ -31,7 +31,7 @@ Lazy Shot is a full screenshot app for humans — capture, annotate, blur, beaut
 
 [![The broken pricing card that opens the demo, captioned "Agents ship UI changes blind."](./assets/demo/demo-poster.png)](./assets/demo/lazy-shot-cookbook-demo.mp4)
 
-*[**The 45-second demo**](./assets/demo/lazy-shot-cookbook-demo.mp4) — connecting the server, the loop above running live, and the named library it leaves behind. Silent and captioned; nothing in it depends on sound. Shot with the [A10 scenario](./scenarios/A10-demo-video.md).*
+*[**The 45-second demo**](./assets/demo/lazy-shot-cookbook-demo.mp4) — connecting the server, the loop above running live, and the named library it leaves behind. Silent and captioned; nothing in it depends on sound. GitHub does not play video committed to a repository, so that link **downloads** the file (2.4 MB); the still above is its opening frame. Shot with the [A10 scenario](./scenarios/A10-demo-video.md).*
 
 **Why agents need this**
 

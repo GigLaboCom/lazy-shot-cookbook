@@ -116,4 +116,7 @@ ffprobe -v error -count_frames -select_streams v:0 \
 - [x] No audio track — `nb_streams=1`
 - [x] `+faststart` applied
 - [x] Under 20 MB — 2.4 MB and 2.1 MB
-- [x] Nothing personal in shell prompt, browser chrome, or the library rows — every take OCR'd at one frame per second
+- [x] Shell prompt, browser chrome and library rows carry nothing personal — both finished cuts OCR'd at one frame per second, then grepped for addresses, hostnames, home directories and bookmark names. None present.
+- [x] What *is* in frame, stated rather than assumed — the audit found two things and neither was removed:
+  - **A first name**, in Claude Code's own welcome banner, for about five seconds of beat 2 in both cuts. It is the author's, on the author's cookbook, and it matches none of the categories above. Removing it means masking a band across the terminal or re-shooting beat 2.
+  - **Chrome's `Managed Bookmarks` folder**, in the bookmarks bar throughout the recorded beats. A Chrome label, not a bookmark anyone named, forced by device policy and not removable with `Cmd+Shift+B`. It says the profile is on a managed device and nothing more.

@@ -72,7 +72,7 @@ Recipe 02, replacing the `TODO(assets): A4` placeholder:
 
 ## Checklist
 
-- [ ] Shot at `./step.sh 3` — the only difference between panels is the numbers
-- [ ] Both panels the same crop and scale
-- [ ] `NaN` legible at final size — it carries the left panel
-- [ ] `./step.sh reset` afterwards
+- [x] Shot at `./step.sh 3` — the only difference between panels is the numbers
+- [x] Both panels the same crop and scale — one `CROP` variable feeds both, so they cannot drift
+- [x] `NaN` legible at final size — it carries the left panel
+- [x] `./step.sh reset` afterwards — the app is committed at step 0

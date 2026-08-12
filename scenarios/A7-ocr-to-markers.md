@@ -105,7 +105,11 @@ Recompute all four crop rectangles for your own window size. The two must frame 
 
 ## The detail that makes it
 
-Draw a hairline from a word in panel 2 to its marker in panel 3. That single line says *the marker position was derived from the OCR box* — which is the whole idea, and the thing a reader will otherwise skim past.
+A reader has to see that *the marker position was derived from the OCR box* — the whole idea, and the thing they will otherwise skim past.
+
+This page originally called for a hairline drawn from a word in panel 2 to its marker in panel 3. The shipped asset does not have one. Once the layout became 2 + 1, a line from the table up into the top-right panel had to cross the full width of the image, and it read as a stray rule rather than as a pointer.
+
+What shipped instead is three cross-references that need no geometry: the ①②③ badges repeat as the table's row markers, a `MARKER X, Y` column sits beside each `BOUNDING BOX`, and one line under the table states that every marker coordinate is the centre of the box on its left. If you re-shoot at three panels in a row, the hairline becomes worth drawing again.
 
 ## Embed
 
@@ -117,9 +121,9 @@ Recipe 05, replacing the `TODO(assets): A7` placeholder:
 
 ## Checklist
 
-- [ ] Panel 3 is a capture of Lazy Shot with markers toggled on — the marker layer's own file shows no badges at all
-- [ ] Markers sit *on* the words, not near them — that precision is the claim
-- [ ] At least one low-confidence word visible in panel 2
-- [ ] The identifiers are readable at final size
-- [ ] The hairline connecting panels 2 and 3 is present
-- [ ] These identifiers are fictional; if you shot a real error instead, redact with Spoiler
+- [x] Panel 3 is a capture of Lazy Shot with markers toggled on — captioned `grab-payment-error-markers · in Lazy Shot`
+- [x] Markers sit *on* the words, not near them — that precision is the claim
+- [x] At least one low-confidence word visible in panel 2 — `6.9` on the PaymentIntent id, in red
+- [x] The identifiers are readable at final size
+- [x] These identifiers are fictional; if you shot a real error instead, redact with Spoiler
+- [ ] ~~The hairline connecting panels 2 and 3~~ — **not drawn.** The correspondence is carried instead by the ①②③ badges repeating as the table's row markers, a `MARKER X, Y` column beside each `BOUNDING BOX`, and the line under the table: *every marker coordinate is the centre of the box on its left.* Three cross-references rather than one line, and they survive the reader skimming.

@@ -2,7 +2,7 @@
 
 Every tool Heretic Lazy Shot exposes over MCP, with its real parameters. Verified against **app version 0.0.8**.
 
-> **Re-checked against 0.0.9.** The 23 tool names and the tool count are unchanged. Behaviour is not: 0.0.9 makes the capture save directory configurable, and `ocr_image_path`, `get_app_status` and `add_markers` all had to follow it. Each is flagged below. If you are running 0.0.8, ignore the flags.
+> **Re-checked against 0.0.9.** The 23 tool names and the tool count are unchanged. Behaviour is not. 0.0.9 makes MCP captures obey **Settings → Capture** — save directory, filename pattern and image format, all three previously ignored — and three more tools had to follow the file wherever it now lands: `ocr_image_path` (path allowlist), `add_markers` (where the copy is written) and `get_app_status` (how storage is counted). All four are flagged where they are documented: [Capture](#capture-7), [`get_app_status`](#get_app_status), [`add_markers`](#add_markers), [`ocr_image_path`](#ocr_image_path). If you are running 0.0.8, ignore the flags.
 
 Surface: **23 tools · 4 resources · 2 prompts**. Nothing here is aspirational — if a capability isn't listed, it doesn't exist, and a recipe that needs it belongs in an issue rather than a PR.
 
@@ -20,6 +20,8 @@ Every tool call is gated by the app licence, and on the free tier it also draws 
 ## Capture (7)
 
 Captures are headless and silent: no overlay, no editor, and the main window is not brought forward (the app only refreshes its library list in the background). There is currently no on-screen indicator that a capture happened — the audit trail is the log. A successful capture returns `{ id, file_path, width, height, keyword? }`.
+
+**Changed in 0.0.9 — where captures land, and under what name.** In 0.0.8 all five capture tools wrote to `~/.heretic-lazy-shot/screenshots` regardless of what **Settings → Capture** said; the filename pattern and image format set in the UI were read under key names the frontend never wrote, so they were silently ignored too. 0.0.9 honours all three. If your captures used to appear in the default folder despite a configured save directory, that was the bug, and it is fixed — a recipe that hardcodes the default path will start missing files.
 
 One consequence worth knowing before you photograph the app itself: the library list refreshes live, so a capture of Lazy Shot's own window shows every row that existed when the call was made — including the rows your earlier captures created. It does not show its own row. If you are recording the library filling up, [`delete_screenshot`](#delete_screenshot) each recording frame as you take it; the delete is soft, so the row leaves the list and the file stays where you need it.
 
@@ -176,6 +178,8 @@ Auto-suffixes on collision. Mostly redundant now that capture tools take a `keyw
 
 No parameters. Returns version, platform, arch, locale, storage bytes, screenshot count, the **live MCP port**, feature flags, and the settings blob. The first call to make when something behaves unexpectedly.
 
+**Changed in 0.0.9 — storage bytes mean something different.** 0.0.8 summed the default screenshots directory, so the number counted `preview_*` thumbnails and soft-deleted files while missing anything saved elsewhere. 0.0.9 stats the file behind every active row instead, each distinct path once, and adds a **`missing_files`** count for rows whose file was deleted outside the app. Expect a *lower*, and correct, figure than 0.0.8 reported on the same library. Don't compare the two across versions.
+
 ### `show_window`
 
 | Parameter | Type | Required | Notes |
@@ -203,6 +207,8 @@ Create an annotated screenshot from a source screenshot.
 \* Give either `markers` or `preset_name`.
 
 Default behaviour forks a copy, so the pristine original stays available for diffing.
+
+**Changed in 0.0.9 — where the copy lands.** 0.0.8 always wrote it into the app's default screenshots directory. 0.0.9 writes it **beside its source**, which is the only sane answer once the save directory is configurable and the source may not live in the default folder. The filename is unchanged: `markers_<source filename>`. One consequence worth knowing — re-annotating the same screenshot adds a new row but overwrites the same file, so two rows can share one path.
 
 **What you get back is a marker *layer*, not an annotated picture.** The new entry has `type: "markers"`, its `metadata.markers` array holds the positions, and its `file_path` points at a file whose pixels are still identical to the source.
 

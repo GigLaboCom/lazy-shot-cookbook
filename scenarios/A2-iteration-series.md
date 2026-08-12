@@ -167,9 +167,9 @@ README (replacing the `TODO(assets): A2` placeholder) and the top of recipe 00:
 
 ## Checklist
 
-- [ ] Window geometry identical in all four frames
-- [ ] Each frame visibly differs from the previous one
-- [ ] Keywords burned in and legible at 1280 wide
-- [ ] Nothing personal in the browser chrome
-- [ ] Under 5 MB
-- [ ] `./step.sh reset` afterwards
+- [x] Window geometry identical in all four frames — all four raw captures are 1920 × 1628
+- [x] Each frame visibly differs from the previous one — 0.7–1.2% of pixels change between consecutive frames, all of it inside the card
+- [x] Keywords burned in and legible at 1280 wide — `hero-before`, `hero-iter-1`, `hero-iter-2`, `hero-after`
+- [x] Nothing personal in the browser chrome — the crop starts below it, and OCR of the shipped GIF finds no bookmarks bar
+- [x] Under 5 MB — 260 KB
+- [x] `./step.sh reset` afterwards — the app is committed at step 0

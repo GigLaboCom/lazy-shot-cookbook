@@ -20,3 +20,6 @@ scratch/
 # it, which is not a decision this repository gets to make for its readers.
 # The MCP server config that IS worth sharing lives in examples/ instead.
 .claude/
+
+# Internal, never published: distribution plan, launch copy, metrics.
+docs/LAUNCH-CHECKLIST.md

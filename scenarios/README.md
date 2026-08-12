@@ -57,7 +57,7 @@ A2 is a cut out of A10, so record that session once and take both. A7's dialog a
 | [A3-annotated-flow.md](./A3-annotated-flow.md) | Docs with markers | Yes — settings | ✅ |
 | [A4-before-after.md](./A4-before-after.md) | Bug evidence pair | Yes — checkout | ✅ |
 | [A5-session-replay.md](./A5-session-replay.md) | Navigation flight recorder | No — a real site | ✅ |
-| [A6-sweep-grid.md](./A6-sweep-grid.md) | Batch capture contact sheet | No — your open windows | ⬜ |
+| [A6-sweep-grid.md](./A6-sweep-grid.md) | Batch capture contact sheet | No — your open windows | ✅ |
 | [A7-ocr-to-markers.md](./A7-ocr-to-markers.md) | OCR boxes → markers | Yes — error dialog | ✅ |
 | [A8-A9-setup-shots.md](./A8-A9-setup-shots.md) | Setup screenshots | No — Lazy Shot itself | ✅ |
 | [A10-demo-video.md](./A10-demo-video.md) | 45-second demo | Yes — pricing | ⬜ |

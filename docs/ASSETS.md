@@ -30,13 +30,13 @@ ffmpeg -framerate 1 -i %02d.png -vf "scale=1280:-1:flags=lanczos,split[s0][s1];\
 | A3 | `assets/recipes/01-self-documenting-ui/annotated-flow.png` | Filmstrip | ✅ 1280×473, 100 KB | Recipe 01 |
 | A4 | `assets/recipes/02-visual-bug-fixing/before-after.png` | Diptych | ✅ 1276×390, 48 KB | Recipe 02 |
 | A5 | `assets/recipes/03-complex-site-navigation/session-replay.gif` | Recording | ✅ 1280×650, 483 KB, 9.3 s | Recipe 03 |
-| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ⬜ 1280 wide | Recipe 04 |
+| A6 | `assets/recipes/04-release-day-batch-capture/sweep-grid.png` | Contact sheet | ✅ 1280×774, 168 KB | Recipe 04 |
 | A7 | `assets/recipes/05-copy-the-uncopyable/ocr-to-markers.png` | Triptych | ✅ 1280×781, 184 KB | Recipe 05 |
 | A8 | `assets/setup/settings-mcp.png` | Still | ✅ 1280×500, 72 KB | README setup + SETUP.md |
 | A9 | `assets/setup/claude-code-connected.png` | Still | ✅ 890×184, 20 KB | SETUP.md |
 | A10 | `assets/demo/lazy-shot-cookbook-demo.mp4` | Video | ⬜ 1920×1080, 45 s | X thread, product page, Show HN |
 
-Eight of ten. The two outstanding are the demo video and the sweep grid — both need a staged screen rather than a repeatable command, and the sweep grid needs a curated set of your own windows.
+Nine of ten. Only the demo video is outstanding, and it is the one asset that needs a screen recording rather than a repeatable command.
 
 Widths are what the asset ships at, not a target to hit by upscaling. A8 wanted 1280 rather than the 900 first specified because the smallest label has to survive; A9 stayed at 890 because terminal glyphs go mushy the moment you enlarge them. GIFs stay under 5 MB, PNGs under 1 MB (WebP if not), the video under 20 MB.
 
@@ -138,16 +138,18 @@ The link preview. Seen more often than the README itself, by people who haven't 
 
 **Full scenario: [A6-sweep-grid.md](../scenarios/A6-sweep-grid.md)**
 
-**Must contain:** a 3×3 or 4×3 contact sheet of one real release sweep — nine to twelve different windows captured in a single agent run, each tile captioned with its keyword (`v1-4-settings`, `v1-4-editor`, …). Uniform tile size, small gutters.
+**Must contain:** a contact sheet of one real release sweep — different windows captured in a single agent run, each tile captioned with its keyword (`v1-settings`, `v1-checkout`, …). Uniform tile size, small gutters, letterboxed rather than cropped to fill.
 
-**Produce:** run the recipe 04 prompt, then arrange the resulting captures as a grid in the Compositor.
+**Produce:** ✅ **done** — shot 2026-08-12, 1280 × 774, six tiles at 401 px. Run the recipe 04 prompt, then lay the captures out on a grid. **3 × 2, not 4 × 3:** at twelve tiles the defect that justifies the whole sweep is 298 px wide and unreadable; at six it reads.
 
-**The point it must make:** volume and naming. One command, a dozen named artifacts. Don't crop the captions.
+**The point it must make:** volume and naming — plus one tile that is visibly wrong. Here `v1-checkout` renders every total as `€NaN`, from the demo app's real bug, so the sheet says "we swept the release and found something" rather than "we took six screenshots". Don't crop the captions.
+
+**Watch for:** the tracker records *application* switches, not window switches, so a pile of same-app windows produces one row unless you bounce out and back for each ([how](../scenarios/A6-sweep-grid.md#the-tracker-only-sees-you-switching-apps)). And curate at full size before composing — this shoot cut a Finder tile that carried a work email address in the sidebar.
 
 **Embed** — recipe 04:
 
 ```markdown
-![A twelve-tile contact sheet of windows captured in one release sweep, each tile labelled with its version-prefixed keyword](../../assets/recipes/04-release-day-batch-capture/sweep-grid.png)
+![Six application windows captured in a single sweep and laid out as a contact sheet, each tile labelled with its version-prefixed keyword, one of them showing a currency total rendered as NaN](../../assets/recipes/04-release-day-batch-capture/sweep-grid.png)
 ```
 
 ---

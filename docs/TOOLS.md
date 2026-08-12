@@ -104,7 +104,11 @@ Each entry carries `title`, `process_name`, `stack_position` and `last_seen` (ep
 
 *Too few rows:* the log is written on focus events, so **a window that has never been focused since it was created is not in it at all** — a terminal you opened in the background, a window on another Space. It is still a real window, and `capture_window` will find it, because that tool matches against the OS window list rather than this history. If `capture_tracked_window` says "no window matching X" and you can see the window, that is the difference talking; switch tools rather than clicking around to make it appear.
 
-*And you cannot fill the log from a script.* Raising a window with AppleScript — `set index of window N to 1` — puts it in front without registering it here; three windows raised that way stayed absent while windows the human had actually clicked kept their rows. A window created and left frontmost for a couple of seconds did register. Treat the log as a record of where a **person** has been, which is the honest reading of it anyway, and the reason [recipe 04](../recipes/04-release-day-batch-capture/) has a human curating the list rather than an agent assembling one.
+*And it logs application switches, not window switches.* On macOS the tracker subscribes to `NSWorkspaceDidActivateApplicationNotification` — it wakes when you move between **apps** and records whichever window of the new app is frontmost. (It says which strategy it chose in the app log: `Window tracker started (strategy: events)`, with a 2-second poller as fallback.) Move between two windows of the same app and nothing is written at all: the row for that app stays whatever window happened to be in front the last time you switched into it.
+
+This is why ten open Chrome windows do not produce ten rows, and why raising a window with AppleScript — `set index of window N to 1` — registers nothing.
+
+To get a specific window into the log deliberately: **raise it, switch to another app, switch back.** That round trip fires the notification with your window in front, and the entry appears. It is also, in ordinary use, exactly the motion a person makes, which is why the log is a fair record of where you have actually been.
 
 **Tabs are invisible here.** The tracker works at window granularity, so a second tab in the same terminal or browser window produces no row — it only changes the existing row's `title` while it is the frontmost tab. Anything you want to capture by name has to be its own window.
 

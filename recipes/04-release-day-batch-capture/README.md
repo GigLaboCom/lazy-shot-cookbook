@@ -4,7 +4,9 @@
 
 **Idea:** the built-in **`batch-capture`** MCP workflow prompt turns the sweep into one agent run: discover recently used windows, capture each, name each.
 
-<!-- TODO(assets): A6 — assets/recipes/04-release-day-batch-capture/sweep-grid.png — spec in docs/ASSETS.md -->
+![Six application windows captured in a single sweep and laid out as a contact sheet, each tile labelled with its version-prefixed keyword, one of them showing a currency total rendered as NaN](../../assets/recipes/04-release-day-batch-capture/sweep-grid.png)
+
+*One prompt, six named artifacts. Now look at `v1-checkout`: every total reads `€NaN`, including the button you are asked to press. That is what a contact sheet is for — not to be read, but to make you open the one that looks wrong. Shot with the [A6 scenario](../../scenarios/A6-sweep-grid.md).*
 
 ## The built-in flow
 
